@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Клиент X",
+    "purchaseAmount": 550
+  },
+  {
+    "id": 2,
+    "name": "Клиент Y",
+    "purchaseAmount": 480
+  },
+  {
+    "id": 3,
+    "name": "Клиент Z",
+    "purchaseAmount": 420
+  },
+  {
+    "id": 4,
+    "name": "Клиент W",
+    "purchaseAmount": 400
+  },
+  {
+    "id": 5,
+    "name": "Клиент V",
+    "purchaseAmount": 380
+  },
+  {
+    "id": 6,
+    "name": "Клиент U",
+    "purchaseAmount": 350
+  },
+  {
+    "id": 7,
+    "name": "Клиент T",
+    "purchaseAmount": 320
+  },
+  {
+    "id": 8,
+    "name": "Клиент S",
+    "purchaseAmount": 300
+  },
+  {
+    "id": 9,
+    "name": "Клиент R",
+    "purchaseAmount": 280
+  },
+  {
+    "id": 10,
+    "name": "Клиент Q",
+    "purchaseAmount": 250
+  }
+]

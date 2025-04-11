@@ -1,0 +1,8 @@
+[
+    { "id": 1, "name": "Хлеб", "category": "Выпечка", "weight": "500г", "price": 100 },
+    { "id": 2, "name": "Молоко", "category": "Молочные продукты", "weight": "1л", "price": 80 },
+    { "id": 3, "name": "Яблоки", "category": "Фрукты", "weight": "1кг", "price": 120 },
+    { "id": 4, "name": "Картофель", "category": "Овощи", "weight": "2кг", "price": 60 },
+    { "id": 5, "name": "Сахар", "category": "Бакалея", "weight": "1кг", "price": 90 }
+  ]
+  
