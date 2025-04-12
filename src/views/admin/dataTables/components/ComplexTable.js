@@ -21,6 +21,7 @@ import {
   Select,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
+import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
 import { FaShoppingCart, FaEdit } from 'react-icons/fa';
 import { MdDeleteForever } from 'react-icons/md';
 import {
@@ -36,6 +37,7 @@ import axios from '../../../../api/axios';
 const columnHelper = createColumnHelper();
 
 export default function OrdersTable({ tableData, onAllUpdate }) {
+
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState();
   const [sorting, setSorting] = useState([]);
@@ -91,18 +93,35 @@ export default function OrdersTable({ tableData, onAllUpdate }) {
   const columns = [
     columnHelper.accessor('id', {
       header: () => <Text fontSize="sm" color="gray.400">Номер</Text>,
-      cell: (info) => <Text fontSize="sm" fontWeight="700">{info.getValue()}</Text>,
+      cell: (info) => <Text fontSize="md" >{info.getValue()}</Text>,
     }),
     columnHelper.accessor('client', {
       header: () => <Text fontSize="sm" color="gray.400">Клиент</Text>,
       cell: ({ getValue }) => (
-        <Button variant="link" size="sm" colorScheme="blue" onClick={() => handleClientClick(getValue())}>
+        <Button variant="link" size="md" color={textColor} onClick={() => handleClientClick(getValue())}>
           {getValue()}
         </Button>
       ),
     }),
     columnHelper.accessor('cost', {
       header: () => <Text fontSize="sm" color="gray.400">Сумма</Text>,
+      // Добавляем кастомную функцию сортировки:
+      sortingFn: (rowA, rowB, columnId) => {
+        // Получаем значения из строк
+        const aValue = rowA.getValue(columnId);
+        const bValue = rowB.getValue(columnId);
+        // Если значение представлено строкой с символами валюты – убираем их:
+        const parseValue = (val) => {
+          const numeric = typeof val === 'string'
+            ? parseFloat(val.replace(/[^\d.-]/g, ''))
+            : val;
+          return numeric;
+        };
+        const aNum = parseValue(aValue);
+        const bNum = parseValue(bValue);
+        // Сравниваем как числа:
+        return aNum > bNum ? 1 : aNum < bNum ? -1 : 0;
+      },
       cell: (info) => {
         const value = info.getValue();
         const numeric = typeof value === 'string' ? value.replace(/[^\d.-]/g, '') : value;
@@ -111,12 +130,12 @@ export default function OrdersTable({ tableData, onAllUpdate }) {
           currency: 'RUB',
           maximumFractionDigits: 0,
         });
-        return <Text fontSize="sm">{formatter.format(numeric)}</Text>;
+        return <Text fontSize="md">{formatter.format(numeric)}</Text>;
       },
     }),
     columnHelper.accessor('date', {
       header: () => <Text fontSize="sm" color="gray.400">Дата</Text>,
-      cell: (info) => <Text fontSize="sm">{info.getValue()}</Text>,
+      cell: (info) => <Text fontSize="md">{info.getValue()}</Text>,
     }),
   ];
 
@@ -233,15 +252,26 @@ export default function OrdersTable({ tableData, onAllUpdate }) {
           <Text fontSize="22px" fontWeight="700" color={textColor}>Последние продажи</Text>
         </Flex>
         <Box>
-          <Table variant="simple" color="gray.500" mb="24px" mt="12px" fontFamily="'Inter', sans-serif">
+          <Table variant="simple" color="gray.500" mb="24px" mt="12px" fontFamily="'Montserrat', sans-serif">
             <Thead>
               {table.getHeaderGroups().map(headerGroup => (
                 <Tr key={headerGroup.id}>
                   {headerGroup.headers.map(header => (
-                    <Th fontSize={{ sm: '10px', lg: '12px' }} color="gray.400" key={header.id} borderColor={borderColor} onClick={header.column.getToggleSortingHandler()} cursor="pointer">
-                      <Flex justify="space-between" align="center" fontSize="sm" color="gray.400">
+                    <Th
+                      fontSize={{ sm: '10px', lg: '12px' }}
+                      color="gray.400"
+                      key={header.id}
+                      borderColor={borderColor}
+                      onClick={header.column.getToggleSortingHandler()}
+                      cursor="pointer"
+                    >
+                      <Flex justify="space-between" align="center" fontSize="sm" color="gray.400" gap={2}>
                         {flexRender(header.column.columnDef.header, header.getContext())}
-                        {header.column.getIsSorted() === 'asc' ? ' 🔼' : header.column.getIsSorted() === 'desc' ? ' 🔽' : ''}
+                        {header.column.getIsSorted() === 'asc' ? (
+                          <AiOutlineArrowUp />
+                        ) : header.column.getIsSorted() === 'desc' ? (
+                          <AiOutlineArrowDown />
+                        ) : null}
                       </Flex>
                     </Th>
                   ))}
@@ -252,11 +282,16 @@ export default function OrdersTable({ tableData, onAllUpdate }) {
               {table.getRowModel().rows.map(row => (
                 <Tr key={row.id}>
                   {row.getVisibleCells().map(cell => (
-                    <Td key={cell.id} fontSize="sm" borderColor="transparent"
-                      fontWeight="700"
-                      color={textColor}>
+                    <Td
+                      key={cell.id}
+                      borderColor="transparent"
+                      fontSize="xl"
+                      fontWeight="bold"
+                      color={textColor}
+                    >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </Td>
+
                   ))}
                 </Tr>
               ))}

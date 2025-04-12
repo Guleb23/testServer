@@ -40,6 +40,8 @@ const columnHelper = createColumnHelper();
 export default function ColumnTable({ productsData, clientsData, categories, onDeleteProduct, onEditProduct, onDeleteClient, onEditClient }) {
   const inputBg = useColorModeValue("white", "gray.700");
   const inputTextColor = useColorModeValue("gray.800", "white"); // Цвет текста в input
+  const textColor = useColorModeValue('secondaryGray.900', 'white');
+  const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
   const [selectedClient, setSelectedClient] = React.useState(null);
   const [clientFormData, setClientFormData] = React.useState({
     id: '',
@@ -132,8 +134,7 @@ export default function ColumnTable({ productsData, clientsData, categories, onD
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const currentData = data.slice(page * itemsPerPage, (page + 1) * itemsPerPage);
 
-  const textColor = useColorModeValue('black', 'white');
-  const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
+
 
   // Функция для редактирования
   const handleEditProduct = (product) => {
@@ -208,13 +209,13 @@ export default function ColumnTable({ productsData, clientsData, categories, onD
       </Flex>
 
       <Box maxHeight="600px" overflowY="auto">
-        <Table variant="simple" color="gray.500" mb="16px">
+        <Table variant="simple" color="gray.500" mb="16px" fontFamily="'Montserrat', sans-serif">
           <Thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <Tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <Th key={header.id} colSpan={header.colSpan} pe="10px" borderColor={borderColor} cursor="pointer">
-                    <Flex justifyContent="space-between" align="center" fontSize={{ sm: '10px', lg: '12px' }} color="gray.400">
+                    <Flex justifyContent="space-between" align="center" fontSize={{ sm: '10px', lg: '14px' }} color="gray.400">
                       {flexRender(header.column.columnDef.header, header.getContext())}
                     </Flex>
                   </Th>
@@ -227,7 +228,7 @@ export default function ColumnTable({ productsData, clientsData, categories, onD
             {table.getRowModel().rows.map((row) => (
               <Tr key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <Td fontSize="sm"
+                  <Td fontSize="md"
                     fontWeight="700"
                     color={textColor}
                     minW="20px"
