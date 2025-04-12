@@ -230,7 +230,7 @@ export default function UserReports() {
         mb='20px'
         columns={{ sm: 1, md: 2 }}
         spacing={{ base: "20px", xl: "20px" }}>
-        <ComplexTable tableData={tableDataComplex} />
+        <ComplexTable tableData={tableDataComplex} onAllUpdate={fetchData} />
         <ColumnsTable categories={categories} onDeleteClient={handleDeleteClient} onEditClient={handleEditClient} onEditProduct={handleEditProduct} onDeleteProduct={handleDeleteProduct} productsData={productsData} clientsData={clientsData} />
 
 
