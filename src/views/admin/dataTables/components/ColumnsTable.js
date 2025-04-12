@@ -37,7 +37,8 @@ import Card from 'components/card/Card';
 import Menu from 'components/menu/MainMenu';
 const columnHelper = createColumnHelper();
 
-export default function ColumnTable({ productsData, clientsData, categories, onDeleteProduct, onEditProduct, onDeleteClient, onEditClient }) {
+export default function ColumnTable({ productsData = [],
+  clientsData = [], categories, onDeleteProduct, onEditProduct, onDeleteClient, onEditClient }) {
   const inputBg = useColorModeValue("white", "gray.700");
   const inputTextColor = useColorModeValue("gray.800", "white"); // Цвет текста в input
   const textColor = useColorModeValue('secondaryGray.900', 'white');

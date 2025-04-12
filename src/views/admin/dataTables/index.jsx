@@ -64,14 +64,6 @@ export default function UserReports() {
   // Получаем данные с сервера
   useEffect(() => {
     fetchData();
-    // Отключаем прокрутку на body
-
-    console.log(clientsData);
-
-    // Восстанавливаем прокрутку при размонтировании компонента
-
-
-
   }, []);
   const handleDeleteClient = async (id) => {
     if (!id) {
