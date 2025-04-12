@@ -7,12 +7,13 @@ import {
 import ColumnsTable from "views/admin/dataTables/components/ColumnsTable";
 import ComplexTable from "views/admin/dataTables/components/ComplexTable";
 import axios from "../../../api/axios";
+import { useAuth } from "contexts/AuthContext";
 
 export default function UserReports() {
   const inputBg = useColorModeValue("white", "gray.700");
   const inputTextColor = useColorModeValue("gray.800", "white");
   const toast = useToast();
-
+  const { user } = useAuth();
   const [tableDataComplex, setTableDataComplex] = useState([]);
   const [productsData, setProductsData] = useState([]);
   const [clientsData, setClientsData] = useState([]);
@@ -25,7 +26,7 @@ export default function UserReports() {
   const { isOpen: isOpenCreateCategory, onOpen: onOpenCreateCategory, onClose: onCloseCreateCategory } = useDisclosure();
 
   const [newProduct, setNewProduct] = useState({ name: "", price: "", category: "", weight: "" });
-  const [newClient, setNewClient] = useState({ FullName: "", Phone: "", Address: "", Cashback: "", Comment: "" });
+  const [newClient, setNewClient] = useState({ FullName: "", Phone: "", Address: "", Cashback: "", Comment: "", UserId: user.id });
   const [newOrder, setNewOrder] = useState({
     clientId: "",
     cashbackUsed: 0,
@@ -44,8 +45,8 @@ export default function UserReports() {
         categoriesRes
       ] = await Promise.all([
         axios.get("/dashboard/all-products"),
-        axios.get("/dashboard/all-clients"),
-        axios.get("/dashboard/recent-sales"),
+        axios.get(`/dashboard/all-clients/${user.id}`),
+        axios.get("/dashboard/recent-sales", { params: { userId: user.id } }),
         axios.get("/dashboard/categories"),  // Получаем категории с сервера
       ]);
       const categories = categoriesRes.data.map((item) => ({
@@ -78,7 +79,7 @@ export default function UserReports() {
       return;
     }
     try {
-      const response = await axios.delete(`/dashboard/client/${id}`);
+      const response = await axios.delete(`/dashboard/client/${user.id}/${id}`);
       if (response.status === 200) {
         setClientsData(clientsData.filter(client => client.id !== id));  // Обновляем список клиентов
       } else {
@@ -92,7 +93,7 @@ export default function UserReports() {
   // Функция для редактирования клиента
   const handleEditClient = async (updatedClient) => {
     try {
-      const response = await axios.put(`/dashboard/client/${updatedClient.id}`, updatedClient);
+      const response = await axios.put(`/dashboard/client/${user.id}/${updatedClient.id}`, updatedClient);
       if (response.status === 200) {
         setClientsData((prevData) =>
           prevData.map((client) =>
@@ -180,6 +181,7 @@ export default function UserReports() {
   const handleCreateOrder = async () => {
     try {
       const payload = {
+        UserId: user.id,
         clientId: parseInt(newOrder.clientId),
         deliveryMethod: newOrder.deliveryMethod,
         discountPercent: newOrder.discountPercent,

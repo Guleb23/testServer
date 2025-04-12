@@ -33,11 +33,12 @@ import {
 } from '@tanstack/react-table';
 import Card from 'components/card/Card';
 import axios from '../../../../api/axios';
+import { useAuth } from 'contexts/AuthContext';
 
 const columnHelper = createColumnHelper();
 
 export default function OrdersTable({ tableData, onAllUpdate }) {
-
+  const { user } = useAuth()
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState();
   const [sorting, setSorting] = useState([]);
@@ -160,7 +161,7 @@ export default function OrdersTable({ tableData, onAllUpdate }) {
 
   const handleOrderClick = async (order) => {
     try {
-      const { data } = await axios.get(`/dashboard/order-details/${order.orderId}`);
+      const { data } = await axios.get(`/dashboard/orderdetails/${user.id}/${order.orderId}`);
       setSelectedOrder(data);
       onOrderOpen();
     } catch (e) {
@@ -213,11 +214,11 @@ export default function OrdersTable({ tableData, onAllUpdate }) {
 
     try {
       await axios.delete(
-        `/dashboard/order/${selectedOrder.orderId}/product/${encodeURIComponent(editingProduct.originalName)}`
+        `/dashboard/order/${user.id}/${selectedOrder.orderId}/product/${encodeURIComponent(editingProduct.originalName)}`
       );
 
       // Загрузить обновлённый заказ
-      const { data } = await axios.get(`/dashboard/order-details/${selectedOrder.orderId}`);
+      const { data } = await axios.get(`/dashboard/orderDetails/${user.id}/${selectedOrder.orderId}`);
       setSelectedOrder(data);
       onAllUpdate();
       handleCloseEdit(); // Закрыть модалку

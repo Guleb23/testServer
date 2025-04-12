@@ -19,10 +19,11 @@ import PieCard from "views/admin/default/components/PieCard";
 import TotalSpent from "views/admin/default/components/TotalSpent";
 
 import axios from '../../../api/axios'
+import { useAuth } from "contexts/AuthContext";
 export default function UserReports() {
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
-
+  const { user } = useAuth();
   const [statistics, setStatistics] = useState({
     products: 0,
     clients: 0,
@@ -37,6 +38,7 @@ export default function UserReports() {
   const [tableDataTotalSpent, setTableDataTotalSpent] = useState(null);
 
   useEffect(() => {
+    console.log(user.id);
     const fetchData = async () => {
       try {
         const [
@@ -47,13 +49,14 @@ export default function UserReports() {
           top10ProductsRes,
           top10ClientsRes,
         ] = await Promise.all([
-          axios.get("/dashboard/mini-stats"),
-          axios.get("/dashboard/revenue-chart?period=month"), // можно сменить на 'week'
-          axios.get("/dashboard/popular-categories"),
-          axios.get("/dashboard/recent-sales"),
-          axios.get("/dashboard/top10-products"), // Новый запрос для топ-10 продуктов
-          axios.get("/dashboard/top10-clients"), // Новый запрос для топ-10 клиентов
+          axios.get("/dashboard/mini-stats", { params: { userId: user.id } }),
+          axios.get("/dashboard/revenue-chart?period=month", { params: { userId: user.id } }), // можно сменить на 'week'
+          axios.get("/dashboard/popular-categories", { params: { userId: user.id } }),
+          axios.get("/dashboard/recent-sales", { params: { userId: user.id } }),
+          axios.get("/dashboard/top10-products", { params: { userId: user.id } }), // Новый запрос для топ-10 продуктов
+          axios.get("/dashboard/top10-clients", { params: { userId: user.id } }), // Новый запрос для топ-10 клиентов
         ]);
+
 
         const stats = miniStatsRes.data;
         setStatistics({
