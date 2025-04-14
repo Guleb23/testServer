@@ -175,10 +175,10 @@ export default function SignUp() {
                         <InputGroup>
                             <Input
                                 type={showPassword ? "text" : "password"}
-                                name="Пароль"
+                                name="password"
                                 value={formData.password}
                                 onChange={handleChange}
-                                placeholder="Enter password"
+                                placeholder="Введите пароль"
                                 isRequired={true}
                                 variant='auth'
                                 fontSize='sm'

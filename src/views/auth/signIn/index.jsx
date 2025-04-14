@@ -107,7 +107,7 @@ function SignIn() {
         flexDirection='column'>
         <Box me='auto'>
           <Heading color={textColor} fontSize='36px' mb='10px'>
-            Sign In
+            Войти
           </Heading>
           <Text
             mb='36px'
@@ -172,7 +172,7 @@ function SignIn() {
                 onChange={(e) => setPassword(e.target.value)}
                 isRequired={true}
                 fontSize='sm'
-                placeholder='Min. 8 characters'
+                placeholder='Мин. 8 символов'
                 mb='24px'
                 size='lg'
                 type={show ? "text" : "password"}
@@ -238,7 +238,7 @@ function SignIn() {
                   as='span'
                   ms='5px'
                   fontWeight='500'>
-                  Create an Account
+                  Создать аккаунт
                 </Text>
               </NavLink>
             </Text>
