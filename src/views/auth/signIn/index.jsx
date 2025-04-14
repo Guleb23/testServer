@@ -115,7 +115,7 @@ function SignIn() {
             color={textColorSecondary}
             fontWeight='400'
             fontSize='md'>
-            Enter your email and password to sign in!
+            Чтобы войти введите почту и пароль!
           </Text>
         </Box>
         <Flex
@@ -128,26 +128,10 @@ function SignIn() {
           mx={{ base: "auto", lg: "unset" }}
           me='auto'
           mb={{ base: "20px", md: "auto" }}>
-          <Button
-            fontSize='sm'
-            me='0px'
-            mb='26px'
-            py='15px'
-            h='50px'
-            borderRadius='16px'
-            bg={googleBg}
-            color={googleText}
-            fontWeight='500'
-            _hover={googleHover}
-            _active={googleActive}
-            _focus={googleActive}>
-            <Icon as={FcGoogle} w='20px' h='20px' me='10px' />
-            Sign in with Google
-          </Button>
           <Flex align='center' mb='25px'>
             <HSeparator />
             <Text color='gray.400' mx='14px'>
-              or
+              или
             </Text>
             <HSeparator />
           </Flex>
@@ -159,7 +143,7 @@ function SignIn() {
               fontWeight='500'
               color={textColor}
               mb='8px'>
-              Email<Text color={brandStars}>*</Text>
+              Почта<Text color={brandStars}>*</Text>
             </FormLabel>
             <Input
               value={email}
@@ -180,7 +164,7 @@ function SignIn() {
               fontWeight='500'
               color={textColor}
               display='flex'>
-              Password<Text color={brandStars}>*</Text>
+              Пароль<Text color={brandStars}>*</Text>
             </FormLabel>
             <InputGroup size='md'>
               <Input
@@ -216,7 +200,7 @@ function SignIn() {
                   fontWeight='normal'
                   color={textColor}
                   fontSize='sm'>
-                  Keep me logged in
+                  Запомнить меня
                 </FormLabel>
               </FormControl>
               <NavLink to='/auth/forgot-password'>
@@ -225,7 +209,7 @@ function SignIn() {
                   fontSize='sm'
                   w='124px'
                   fontWeight='500'>
-                  Forgot password?
+                  Забыли пароль?
                 </Text>
               </NavLink>
             </Flex>
@@ -237,7 +221,7 @@ function SignIn() {
               w='100%'
               h='50'
               mb='24px'>
-              Sign In
+              Войти
             </Button>
           </FormControl>
           <Flex
@@ -247,7 +231,7 @@ function SignIn() {
             maxW='100%'
             mt='0px'>
             <Text color={textColorDetails} fontWeight='400' fontSize='14px'>
-              Not registered yet?
+              Не зарегистрированы?
               <NavLink to='/auth/sign-up'>
                 <Text
                   color={textColorBrand}

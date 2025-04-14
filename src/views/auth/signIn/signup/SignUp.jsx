@@ -96,7 +96,7 @@ export default function SignUp() {
                 flexDirection='column'>
                 <Box me='auto'>
                     <Heading color={textColor} fontSize='36px' mb='10px'>
-                        Sign up
+                        Регистрация
                     </Heading>
                     <Text
                         mb='36px'
@@ -104,7 +104,7 @@ export default function SignUp() {
                         color={textColorSecondary}
                         fontWeight='400'
                         fontSize='md'>
-                        Enter your data to sign up!
+                        Введите свои данные для регистрации
                     </Text>
                 </Box>
                 <Flex
@@ -126,7 +126,7 @@ export default function SignUp() {
                             fontSize='sm'
                             name="firstName"
                             ms={{ base: "0px", md: "0px" }}
-                            placeholder='Your firstname'
+                            placeholder='Ваше имя'
                             mb='24px'
                             value={formData.firstName}
                             onChange={handleChange}
@@ -143,7 +143,7 @@ export default function SignUp() {
                             fontSize='sm'
                             name="lastName"
                             ms={{ base: "0px", md: "0px" }}
-                            placeholder='Your lastname'
+                            placeholder='Ваша фамилия'
                             mb='24px'
                             value={formData.lastName}
                             onChange={handleChange}
@@ -175,7 +175,7 @@ export default function SignUp() {
                         <InputGroup>
                             <Input
                                 type={showPassword ? "text" : "password"}
-                                name="password"
+                                name="Пароль"
                                 value={formData.password}
                                 onChange={handleChange}
                                 placeholder="Enter password"
@@ -204,7 +204,7 @@ export default function SignUp() {
                             name="confirmPassword"
                             value={formData.confirmPassword}
                             onChange={handleChange}
-                            placeholder="Confirm Password"
+                            placeholder="Подтвердите пароль"
                             isRequired={true}
                             variant='auth'
                             fontSize='sm'
