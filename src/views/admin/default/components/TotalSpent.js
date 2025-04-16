@@ -46,9 +46,9 @@ class LineChart extends React.Component {
       <ReactApexChart
         options={this.state.chartOptions}
         series={this.state.chartData}
-        type='line'
-        width='100%'
-        height='100%'
+        type="line"
+        width="100%"
+        height="100%"
       />
     );
   }
@@ -80,6 +80,15 @@ export default function TotalSpent({ tableDataTotalSpent, ...rest }) {
     }
   }, [tableDataTotalSpent, totalSpentTimePeriod]);
 
+  // Функция для преобразования дат в дни недели
+  const getWeekDaysLabels = (dates) => {
+    return dates.map(date => {
+      const [day, month] = date.split('.'); // Разбиваем строку на день и месяц
+      const dateObj = new Date(2025, month - 1, day);  // Используем год 2025 для дат
+      const dayOfWeek = dateObj.toLocaleString('ru-RU', { weekday: 'short' });  // Преобразуем дату в день недели
+      return dayOfWeek.charAt(0).toUpperCase() + dayOfWeek.slice(1); // Делаем первую букву заглавной
+    });
+  };
 
   const chartOptions = useMemo(() => {
     return {
@@ -88,7 +97,7 @@ export default function TotalSpent({ tableDataTotalSpent, ...rest }) {
         type: "category",
         categories: totalSpentTimePeriod === "months"
           ? ["Октябрь", "Ноябрь", "Декабрь", "Январь", "Февраль", "Март"]
-          : ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
+          : getWeekDaysLabels(tableDataTotalSpent?.week?.categories || []),  // Преобразуем даты в дни недели
         labels: {
           style: {
             colors: "#A3AED0",
@@ -100,7 +109,7 @@ export default function TotalSpent({ tableDataTotalSpent, ...rest }) {
         axisTicks: { show: false },
       },
     };
-  }, [totalSpentTimePeriod]);
+  }, [totalSpentTimePeriod, tableDataTotalSpent]);
 
   if (!lineChartData || lineChartData.length === 0) {
     return null;

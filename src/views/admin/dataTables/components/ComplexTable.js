@@ -34,6 +34,7 @@ import {
 import Card from 'components/card/Card';
 import axios from '../../../../api/axios';
 import { useAuth } from 'contexts/AuthContext';
+import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 
 const columnHelper = createColumnHelper();
 
@@ -92,17 +93,14 @@ export default function OrdersTable({ tableData, onAllUpdate }) {
   }, [tableData]);
 
   const columns = [
-    columnHelper.accessor('id', {
+    {
       header: () => <Text fontSize="sm" color="gray.400">Номер</Text>,
-      cell: (info) => <Text fontSize="md" >{info.getValue()}</Text>,
-    }),
+      id: 'rowNumber',
+      cell: (info) => <Text fontSize="md">{info.row.index + 1}</Text>,
+    },
     columnHelper.accessor('client', {
       header: () => <Text fontSize="sm" color="gray.400">Клиент</Text>,
-      cell: ({ getValue }) => (
-        <Button variant="link" size="md" color={textColor} onClick={() => handleClientClick(getValue())}>
-          {getValue()}
-        </Button>
-      ),
+      cell: (info) => <Text fontSize="md">{info.getValue()}</Text>
     }),
     columnHelper.accessor('cost', {
       header: () => <Text fontSize="sm" color="gray.400">Сумма</Text>,
@@ -249,7 +247,7 @@ export default function OrdersTable({ tableData, onAllUpdate }) {
   return (
     <>
       <Card w="100%" px="0px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
-        <Flex px="25px" mb="8px" justify="space-between" align="center">
+        <Flex px="25px" height={`40px`} mb="8px" justify="space-between" align="center">
           <Text fontSize="22px" fontWeight="700" color={textColor}>Последние продажи</Text>
         </Flex>
         <Box>
@@ -266,12 +264,12 @@ export default function OrdersTable({ tableData, onAllUpdate }) {
                       onClick={header.column.getToggleSortingHandler()}
                       cursor="pointer"
                     >
-                      <Flex justify="space-between" align="center" fontSize="sm" color="gray.400" gap={2}>
+                      <Flex justify="space-between" align="center" fontSize="sm" color="gray.400" gap={1}>
                         {flexRender(header.column.columnDef.header, header.getContext())}
                         {header.column.getIsSorted() === 'asc' ? (
-                          <AiOutlineArrowUp />
+                          <ChevronUpIcon boxSize={4} />
                         ) : header.column.getIsSorted() === 'desc' ? (
-                          <AiOutlineArrowDown />
+                          <ChevronDownIcon boxSize={4} />
                         ) : null}
                       </Flex>
                     </Th>

@@ -7,10 +7,12 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SidebarDocs() {
   const bgColor = "linear-gradient(135deg, #868CFF 0%, #4318FF 100%)";
   const borderColor = useColorModeValue("white", "navy.800");
+  const navigate = useNavigate();
 
   return (
     <Flex
@@ -39,8 +41,9 @@ export default function SidebarDocs() {
           Есть новый заказ?
         </Text>
       </Flex>
-      <Link href='https://horizon-ui.com/pro?ref=horizon-chakra-free'>
+      <Link>
         <Button
+          onClick={() => navigate(`/admin/data-tables`)}
           bg='whiteAlpha.300'
           _hover={{ bg: "whiteAlpha.200" }}
           _active={{ bg: "whiteAlpha.100" }}

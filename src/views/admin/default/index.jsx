@@ -38,7 +38,7 @@ export default function UserReports() {
   const [tableDataTotalSpent, setTableDataTotalSpent] = useState(null);
 
   useEffect(() => {
-    console.log(user.id);
+
     const fetchData = async () => {
       try {
         const [
@@ -50,7 +50,7 @@ export default function UserReports() {
           top10ClientsRes,
         ] = await Promise.all([
           axios.get("/dashboard/mini-stats", { params: { userId: user.id } }),
-          axios.get("/dashboard/revenue-chart?period=month", { params: { userId: user.id } }), // можно сменить на 'week'
+          axios.get("/dashboard/revenue-chart", { params: { userId: user.id } }), // можно сменить на 'week'
           axios.get("/dashboard/popular-categories", { params: { userId: user.id } }),
           axios.get("/dashboard/recent-sales", { params: { userId: user.id } }),
           axios.get("/dashboard/top10-products", { params: { userId: user.id } }), // Новый запрос для топ-10 продуктов
@@ -87,10 +87,10 @@ export default function UserReports() {
           name: client.fullName,  // Имя клиента
           purchaseAmount: client.total,  // Общая сумма покупок
         }));
-        console.log(normalizedTopClients);
+
         setTableDataCheckClients(normalizedTopClients); // Присваиваем данные топ-10 клиентов
         setTableDataComplex(recentSalesRes.data);
-        console.log(recentSalesRes.data);
+        console.log(revenueChartRes.data);
 
         setTableDataTotalSpent(revenueChartRes.data);
 
