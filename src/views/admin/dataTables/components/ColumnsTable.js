@@ -277,6 +277,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
 
   const handleSaveClient = () => {
     onEditClient(clientFormData);
+    onAllUpdate();
     setIsModalOpen(false);
   };
 

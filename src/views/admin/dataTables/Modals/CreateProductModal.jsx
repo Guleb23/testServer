@@ -13,6 +13,7 @@ import {
     Box,
     List,
     ListItem,
+    useToast
 } from "@chakra-ui/react";
 
 const CreateProductModal = ({
@@ -28,6 +29,7 @@ const CreateProductModal = ({
 }) => {
     const [categorySearch, setCategorySearch] = useState("");
     const [showDropdown, setShowDropdown] = useState(false);
+    const toast = useToast();
 
     const filteredCategories = categories.filter((category) =>
         category.name.toLowerCase().includes(categorySearch.toLowerCase())
@@ -37,6 +39,65 @@ const CreateProductModal = ({
         setNewProduct({ ...newProduct, category: category.id });
         setCategorySearch(category.name);
         setShowDropdown(false);
+    };
+
+    const validateForm = () => {
+        // Check if the product name is not empty
+        if (!newProduct.name) {
+            toast({
+                title: "Ошибка",
+                description: "Пожалуйста, введите название товара.",
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+            });
+            return false;
+        }
+
+        // Check if the category is selected
+        if (!newProduct.category) {
+            toast({
+                title: "Ошибка",
+                description: "Пожалуйста, выберите категорию.",
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+            });
+            return false;
+        }
+
+        // Check if price is a valid number
+        if (!newProduct.price || isNaN(newProduct.price) || newProduct.price <= 0) {
+            toast({
+                title: "Ошибка",
+                description: "Пожалуйста, введите правильную цену товара.",
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+            });
+            return false;
+        }
+
+        // Check if weight is a valid number
+        if (!newProduct.weight || isNaN(newProduct.weight) || newProduct.weight <= 0) {
+            toast({
+                title: "Ошибка",
+                description: "Пожалуйста, введите правильный вес товара.",
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+            });
+            return false;
+        }
+
+        return true;
+    };
+
+    const handleCreateProductWithValidation = () => {
+        // Validate the form before submitting
+        if (validateForm()) {
+            handleCreateProduct();
+        }
     };
 
     return (
@@ -130,7 +191,6 @@ const CreateProductModal = ({
                             }
                             placeholder="Введите вес товара в граммах"
                         />
-
                     </FormControl>
                 </ModalBody>
 
@@ -138,7 +198,7 @@ const CreateProductModal = ({
                     <Button variant="ghost" onClick={onClose}>
                         Отмена
                     </Button>
-                    <Button colorScheme="blue" onClick={handleCreateProduct}>
+                    <Button colorScheme="blue" onClick={handleCreateProductWithValidation}>
                         Создать
                     </Button>
                 </ModalFooter>

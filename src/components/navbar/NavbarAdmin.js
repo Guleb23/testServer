@@ -1,4 +1,3 @@
-// Chakra Imports
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Link, Text, useColorModeValue } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
@@ -7,7 +6,7 @@ import AdminNavbarLinks from 'components/navbar/NavbarLinksAdmin';
 
 const pageNames = {
   'dashboard': { name: 'Главная', path: '/' },
-  'tables': { name: 'Таблицы', path: '/admin/data-tables' },
+  'data-tables': { name: 'Таблицы', path: '/admin/data-tables' }, // Добавляем путь для data-tables
   'profile': { name: 'Профиль', path: '/admin/profile' }
 };
 
@@ -31,6 +30,7 @@ export default function AdminNavbar(props) {
   const updateBreadcrumb = () => {
     const pathSegments = location.pathname.split('/').filter(segment => segment);
     const lastSegment = pathSegments[pathSegments.length - 1] || 'dashboard';
+    // Проверяем, если в pageNames есть ключ для этого пути, если нет, то оставляем "Главная"
     setBrandText(pageNames[lastSegment] || { name: 'Главная', path: '/' });
   };
 
@@ -50,7 +50,8 @@ export default function AdminNavbar(props) {
       pt="8px"
       w={{ base: 'calc(100vw - 6%)', md: 'calc(100vw - 8%)', xl: 'calc(100vw - 350px)' }}
       top={{ base: '12px', md: '16px', xl: '20px' }}
-      right={{ base: '12px', md: '30px', xl: '30px' }}>
+      right={{ base: '12px', md: '30px', xl: '30px' }}
+    >
       <Flex w="100%" flexDirection={{ sm: 'column', md: 'row' }} alignItems={{ xl: 'center' }}>
         <Box>
           <Breadcrumb>
