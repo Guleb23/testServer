@@ -48,6 +48,12 @@ import { IoMdPricetag } from 'react-icons/io';
 const columnHelper = createColumnHelper();
 
 export default function AllOrdersTable({ tableData, onAllUpdate }) {
+    const {
+        isOpen: isDeleteOrderOpen,
+        onOpen: onDeleteOrderOpen,
+        onClose: onDeleteOrderClose
+    } = useDisclosure();
+    const [orderToDelete, setOrderToDelete] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [isAddProductOpen, setIsAddProductOpen] = useState(false);
@@ -146,19 +152,16 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                 <Flex justify="center" align="center" h="100%">
                     <Button
                         size="md"
-                        verticalAlign={`center`}
-                        textAlign={`center`}
                         onClick={(e) => {
                             e.stopPropagation();
                             handleDeleteOrder(info.row.original.id || info.row.original.orderId);
                         }}
-
                     >
-                        <MdDeleteForever color='purple.900' />
+                        <MdDeleteForever color="purple.500" />
                     </Button>
                 </Flex>
             ),
-        },
+        }
     ];
 
     const table = useReactTable({
@@ -367,12 +370,15 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
             console.error('Ошибка удаления товара:', e);
         }
     };
-    const handleDeleteOrder = async (orderId) => {
-        if (!window.confirm('Удалить заказ?')) return;
+    const handleDeleteOrder = (orderId) => {
+        setOrderToDelete(orderId);
+        onDeleteOrderOpen();
+    };
 
+    const confirmDeleteOrder = async () => {
         try {
-            await axios.delete(`/dashboard/order/${orderId}`);
-            onAllUpdate();
+            await axios.delete(`/dashboard/order/${orderToDelete}`);
+            onAllUpdate(); // Обновляем таблицу
         } catch (e) {
             console.error('Ошибка удаления:', e);
         }
@@ -380,6 +386,12 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
 
     return (
         <>
+            <DeleteOrderDialog
+                isOpen={isDeleteOrderOpen}
+                onClose={onDeleteOrderClose}
+                onDelete={confirmDeleteOrder}
+                orderId={orderToDelete}
+            />
             <Card w="100%" height="calc(100vh - 135px)" px="0px" overflowX={{ sm: 'scroll', lg: 'hidden' }} display="flex" flexDirection="column">
                 {/* Заголовок - фиксированная шапка */}
                 <Flex

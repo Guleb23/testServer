@@ -1,4 +1,3 @@
-/* eslint-disable */
 import {
   Flex,
   Box,
@@ -22,10 +21,16 @@ import {
   Input,
   Select,
   useDisclosure,
+  useToast,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
 } from '@chakra-ui/react';
 import { MdDelete } from "react-icons/md";
 import { FaEdit, FaSortUp, FaSortDown, FaSort } from "react-icons/fa";
-
 import * as React from 'react';
 import {
   createColumnHelper,
@@ -263,15 +268,70 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
     setIsModalOpen(true);
   };
 
+  // Состояния для диалогов удаления
+  const {
+    isOpen: isDeleteProductOpen,
+    onOpen: onDeleteProductOpen,
+    onClose: onDeleteProductClose
+  } = useDisclosure();
+  const {
+    isOpen: isDeleteClientOpen,
+    onOpen: onDeleteClientOpen,
+    onClose: onDeleteClientClose
+  } = useDisclosure();
+  const [itemToDelete, setItemToDelete] = React.useState(null);
+
   const handleDeleteProduct = (id) => {
-    if (window.confirm('Удалить продукт?')) {
-      onDeleteProduct(id);
-    }
+    setItemToDelete(id);
+    onDeleteProductOpen();
   };
 
   const handleDeleteClient = (id) => {
-    if (window.confirm('Удалить клиента?')) {
-      onDeleteClient(id);
+    setItemToDelete(id);
+    onDeleteClientOpen();
+  };
+
+  const confirmDeleteProduct = async () => {
+    try {
+      await onDeleteProduct(itemToDelete);
+      toast({
+        title: 'Товар удален',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: 'Ошибка удаления',
+        description: error.message,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      onDeleteProductClose();
+    }
+  };
+
+  const confirmDeleteClient = async () => {
+    try {
+      await onDeleteClient(itemToDelete);
+      toast({
+        title: 'Клиент удален',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: 'Ошибка удаления',
+        description: error.message,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      onDeleteClientClose();
     }
   };
 
@@ -280,7 +340,42 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
     onAllUpdate();
     setIsModalOpen(false);
   };
+  const DeleteDialog = ({
+    isOpen,
+    onClose,
+    onConfirm,
+    title = "Удаление",
+    message = "Вы уверены? Это действие нельзя отменить."
+  }) => {
+    const cancelRef = React.useRef();
 
+    return (
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              {title}
+            </AlertDialogHeader>
+            <AlertDialogBody>
+              {message}
+            </AlertDialogBody>
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Отмена
+              </Button>
+              <Button colorScheme="red" onClick={onConfirm} ml={3}>
+                Удалить
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
+    );
+  };
   return (
     <Card height="calc(100vh - 135px)" flexDirection="column" w="100%" px="0px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
       <Flex px="25px" mb="8px" h={`12`} justify="space-between" align="center">
@@ -513,6 +608,22 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
         setNewCategory={setNewCategory}
         inputBg={inputBg}
         inputTextColor={inputTextColor}
+      />
+      {/* Диалоги удаления */}
+      <DeleteDialog
+        isOpen={isDeleteProductOpen}
+        onClose={onDeleteProductClose}
+        onConfirm={confirmDeleteProduct}
+        title="Удаление товара"
+        message="Вы уверены, что хотите удалить этот товар?"
+      />
+
+      <DeleteDialog
+        isOpen={isDeleteClientOpen}
+        onClose={onDeleteClientClose}
+        onConfirm={confirmDeleteClient}
+        title="Удаление клиента"
+        message="Вы уверены, что хотите удалить этого клиента?"
       />
     </Card>
   );
