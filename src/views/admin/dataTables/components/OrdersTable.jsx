@@ -424,21 +424,23 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                 <Box
                     overflowY="auto"
                     flex="1"
-                    css={{
+                    sx={{
                         '&::-webkit-scrollbar': {
-                            width: '8px', // Увеличено с 6px
+                            width: '8px',
                         },
                         '&::-webkit-scrollbar-track': {
-                            background: useColorModeValue('gray.100', 'gray.800'), // Темнее для темной темы
-                            borderRadius: '4px' // Добавлено
+                            background: useColorModeValue('gray.100', 'gray.800'),
+                            borderRadius: '4px',
                         },
                         '&::-webkit-scrollbar-thumb': {
-                            background: useColorModeValue('gray.400', 'gray.600'), // Контрастнее
-                            borderRadius: '4px', // Добавлено
+                            background: useColorModeValue('gray.400', 'gray.600'),
+                            borderRadius: '4px',
                             '&:hover': {
-                                background: useColorModeValue('gray.500', 'gray.500') // Эффект при наведении
-                            }
-                        }
+                                background: useColorModeValue('gray.500', 'gray.500'),
+                            },
+                        },
+                        scrollbarWidth: 'thin', // Firefox
+                        scrollbarColor: `${useColorModeValue('gray.400', 'gray.600')} ${useColorModeValue('gray.100', 'gray.800')}`,
                     }}
                 >
                     <Table
