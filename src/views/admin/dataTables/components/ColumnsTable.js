@@ -32,7 +32,9 @@ import {
   AlertDialogFooter,
   TableContainer,
 } from '@chakra-ui/react';
+import { Scrollbars } from 'react-custom-scrollbars-2';
 import { MdDelete } from "react-icons/md";
+import { renderTrack, renderThumb, renderView } from "../../../../components/scrollbar/Scrollbar"
 import { FaEdit, FaSortUp, FaSortDown, FaSort } from "react-icons/fa";
 import {
   createColumnHelper,
@@ -411,70 +413,86 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
         </Flex>
 
         <Box
-          flex="1" // Добавлено
+          flex="1"
           overflowY="auto"
           css={{
             '&::-webkit-scrollbar': {
-              width: '8px', // Увеличено с 6px
+              width: '8px',
             },
             '&::-webkit-scrollbar-track': {
-              background: useColorModeValue('gray.100', 'gray.800'), // Темнее для темной темы
-              borderRadius: '4px' // Добавлено
+              background: useColorModeValue('gray.100', 'gray.800'),
+              borderRadius: '4px'
             },
             '&::-webkit-scrollbar-thumb': {
-              background: useColorModeValue('gray.400', 'gray.600'), // Контрастнее
-              borderRadius: '4px', // Добавлено
+              background: useColorModeValue('gray.400', 'gray.600'),
+              borderRadius: '4px',
               '&:hover': {
-                background: useColorModeValue('gray.500', 'gray.500') // Эффект при наведении
+                background: useColorModeValue('gray.500', 'gray.500')
               }
             }
           }}
+          sx={{
+            '& > div': {
+              '&::-webkit-scrollbar': {
+                display: 'none'
+              },
+              '-ms-overflow-style': 'none',
+              'scrollbar-width': 'none'
+            }
+          }}
         >
-          <Table height={`full`} variant="simple" color="gray.500" mb="24px" mt="12px" fontFamily="'Montserrat', sans-serif">
-            <Thead height={`40px`}>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <Tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <Th
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      pe="10px"
-                      borderColor={borderColor}
-                      cursor="pointer"
-                      onClick={header.column.getToggleSortingHandler()}
-                    >
-                      <Flex justifyContent="space-between" align="center" fontSize={{ sm: '10px', lg: '14px' }} color="gray.400">
-                        {flexRender(header.column.columnDef.header, header.getContext())}
-                        {{
-                          asc: <ChevronUpIcon boxSize={4} />,
-                          desc: <ChevronDownIcon boxSize={4} />
-                        }[header.column.getIsSorted()]}
-                      </Flex>
-                    </Th>
-                  ))}
-                </Tr>
-              ))}
-            </Thead>
+          <Scrollbars
+            renderTrackVertical={renderTrack}
+            renderThumbVertical={renderThumb}
+            renderView={renderView}
+            autoHide
+          >
+            <Table height={`full`} variant="simple" color="gray.500" mb="24px" mt="12px" fontFamily="'Montserrat', sans-serif">
+              <Thead height={`40px`}>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <Tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <Th
+                        key={header.id}
+                        colSpan={header.colSpan}
+                        pe="10px"
+                        borderColor={borderColor}
+                        cursor="pointer"
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        <Flex justifyContent="space-between" align="center" fontSize={{ sm: '10px', lg: '14px' }} color="gray.400">
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                          {{
+                            asc: <ChevronUpIcon boxSize={4} />,
+                            desc: <ChevronDownIcon boxSize={4} />
+                          }[header.column.getIsSorted()]}
+                        </Flex>
+                      </Th>
+                    ))}
+                  </Tr>
+                ))}
+              </Thead>
 
-            <Tbody>
-              {table.getRowModel().rows.map((row) => (
-                <Tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <Td
-                      fontSize="md"
-                      fontWeight="700"
-                      color={textColor}
-                      minW="20px"
-                      borderColor="transparent"
-                      key={cell.id}
-                    >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </Td>
-                  ))}
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
+              <Tbody>
+                {table.getRowModel().rows.map((row) => (
+                  <Tr key={row.id}>
+                    {row.getVisibleCells().map((cell) => (
+                      <Td
+                        fontSize="md"
+                        fontWeight="700"
+                        color={textColor}
+                        minW="20px"
+                        borderColor="transparent"
+                        key={cell.id}
+                      >
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </Td>
+                    ))}
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </Scrollbars>
         </Box>
       </Card>
 
