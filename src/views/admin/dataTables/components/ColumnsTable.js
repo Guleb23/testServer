@@ -387,7 +387,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
   return (
     <>
       <Card height="calc(100vh - 135px)" flexDirection="column" w="100%" px="0px" overflow="hidden">
-        <Flex px="25px" mb="8px" h={`12`} justify="space-between" align="center">
+        <Flex px="25px" mb="8px" h="12" justify="space-between" align="center">
           <Flex align="center" gap={3}>
             <Text fontSize="22px" fontWeight="700" color={textColor}>
               {tableType === 'products' ? 'Товары' : 'Клиенты'}
@@ -412,22 +412,12 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
           />
         </Flex>
 
-        <Box flex="1" h="calc(100vh - 200px)">
-          <Scrollbars
-            style={{ height: '100%' }}
-            renderTrackVertical={renderTrack}
-            renderThumbVertical={renderThumb}
-            renderView={renderView}
-          >
-            <Table
-              height="full"
-              variant="simple"
-              color="gray.500"
-              mb="24px"
-              mt="12px"
-              fontFamily="'Montserrat', sans-serif"
-            >
-              <Thead height="40px">
+        {/* Box с фиксированной высотой */}
+        <Box flex="1" height="100%" overflow="hidden">
+          {/* Scrollbars оборачиваем Table */}
+          <Scrollbars style={{ width: '100%', height: '100%' }} autoHide>
+            <Table variant="simple" color="gray.500" mb="24px" mt="12px" fontFamily="'Montserrat', sans-serif">
+              <Thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <Tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
@@ -439,12 +429,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
                         cursor="pointer"
                         onClick={header.column.getToggleSortingHandler()}
                       >
-                        <Flex
-                          justifyContent="space-between"
-                          align="center"
-                          fontSize={{ sm: '10px', lg: '14px' }}
-                          color="gray.400"
-                        >
+                        <Flex justify="space-between" align="center" fontSize={{ sm: '10px', lg: '14px' }} color="gray.400">
                           {flexRender(header.column.columnDef.header, header.getContext())}
                           {{
                             asc: <ChevronUpIcon boxSize={4} />,
@@ -456,7 +441,6 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
                   </Tr>
                 ))}
               </Thead>
-
               <Tbody>
                 {table.getRowModel().rows.map((row) => (
                   <Tr key={row.id}>

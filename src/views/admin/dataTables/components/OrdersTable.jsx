@@ -395,66 +395,54 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                 onDelete={confirmDeleteOrder}
                 orderId={orderToDelete}
             />
-            <Card w="100%" height="calc(100vh - 135px)" px="0px" overflow="hidden" display="flex" flexDirection="column">
-                {/* Заголовок - фиксированная шапка */}
-                <Flex
-                    px="25px"
-                    mb="8px"
-                    h="12"
-                    justify="space-between"
-                    align="center"
-                    position="sticky"
-                    top="0"
-                    zIndex="1"
-                >
-                    <Text fontSize="22px" fontWeight="700" color={textColor}>Продажи</Text>
-                    <Button
-                        borderRadius="50%"
-                        width="40px"
-                        height="40px"
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                        onClick={onOpenCreateOrder}
-                    >
-                        <AddIcon boxSize={4} color="purple.500" />
-                    </Button>
+            <Card height="calc(100vh - 135px)" w="100%" px="0px" overflow="hidden" display="flex" flexDirection="column">
+                <Flex px="25px" mb="8px" h="12" justify="space-between" align="center">
+                    <Flex align="center" gap={3}>
+                        <Text fontSize="22px" fontWeight="700" color={textColor}>
+                            {tableType === 'products' ? 'Товары' : 'Клиенты'}
+                        </Text>
+                        <Button
+                            borderRadius="50%"
+                            width="40px"
+                            height="40px"
+                            display="flex"
+                            justifyContent="center"
+                            alignItems="center"
+                            onClick={handleAdd}
+                        >
+                            <AddIcon boxSize={4} color="purple.500" />
+                        </Button>
+                    </Flex>
+                    <Menu
+                        options={[
+                            { label: 'Товары', action: () => setTableType('products') },
+                            { label: 'Клиенты', action: () => setTableType('clients') },
+                        ]}
+                    />
                 </Flex>
 
-                {/* Таблица в скролл-контейнере */}
-                <Box flex="1" h="calc(100vh - 200px)">
-                    <Scrollbars
-                        style={{ height: '100%' }}
-                        renderTrackVertical={renderTrack}
-                        renderThumbVertical={renderThumb}
-                        renderView={renderView}
-                    >
-                        <Table
-                            variant="simple"
-                            color="gray.500"
-                            mb="24px"
-                            mt="12px"
-                            fontFamily="'Montserrat', sans-serif"
-                        >
+                {/* Box с фиксированной высотой */}
+                <Box flex="1" h="100%" overflow="hidden">
+                    <Scrollbars style={{ width: '100%', height: '100%' }} autoHide>
+                        <Table variant="simple" color="gray.500" mb="24px" mt="12px" fontFamily="'Montserrat', sans-serif">
                             <Thead>
-                                {table.getHeaderGroups().map(headerGroup => (
+                                {table.getHeaderGroups().map((headerGroup) => (
                                     <Tr key={headerGroup.id}>
-                                        {headerGroup.headers.map(header => (
+                                        {headerGroup.headers.map((header) => (
                                             <Th
-                                                fontSize={{ sm: '10px', lg: '12px' }}
-                                                color="gray.400"
                                                 key={header.id}
+                                                colSpan={header.colSpan}
+                                                pe="10px"
                                                 borderColor={borderColor}
-                                                onClick={header.column.getToggleSortingHandler()}
                                                 cursor="pointer"
+                                                onClick={header.column.getToggleSortingHandler()}
                                             >
-                                                <Flex justify="space-between" align="center" fontSize="sm" color="gray.400" gap={1}>
+                                                <Flex justify="space-between" align="center" fontSize={{ sm: '10px', lg: '14px' }} color="gray.400">
                                                     {flexRender(header.column.columnDef.header, header.getContext())}
-                                                    {header.column.getIsSorted() === 'asc' ? (
-                                                        <ChevronUpIcon boxSize={4} />
-                                                    ) : header.column.getIsSorted() === 'desc' ? (
-                                                        <ChevronDownIcon boxSize={4} />
-                                                    ) : null}
+                                                    {{
+                                                        asc: <ChevronUpIcon boxSize={4} />,
+                                                        desc: <ChevronDownIcon boxSize={4} />,
+                                                    }[header.column.getIsSorted()]}
                                                 </Flex>
                                             </Th>
                                         ))}
@@ -462,54 +450,18 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                                 ))}
                             </Thead>
                             <Tbody>
-                                {table.getRowModel().rows.map(row => (
-                                    <Tr
-                                        key={row.id}
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            handleOrderClick(row.original);
-                                        }}
-                                        _hover={{ bg: bgReadonly, cursor: 'pointer' }}
-                                    >
-                                        {row.getVisibleCells().map(cell => (
+                                {table.getRowModel().rows.map((row) => (
+                                    <Tr key={row.id}>
+                                        {row.getVisibleCells().map((cell) => (
                                             <Td
-                                                h="65px"
-                                                key={cell.id}
-                                                borderColor="transparent"
-                                                fontSize="xl"
-                                                fontWeight="bold"
+                                                fontSize="md"
+                                                fontWeight="700"
                                                 color={textColor}
+                                                minW="20px"
+                                                borderColor="transparent"
+                                                key={cell.id}
                                             >
-                                                {cell.column.id === 'status' ? (
-                                                    <Flex justifyContent="center" alignItems="center">
-                                                        <Button
-                                                            colorScheme={cell.getValue() ? 'green' : 'red'}
-                                                            size="sm"
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                const newStatus = !cell.getValue();
-                                                                updatePaymentStatus(row.original.id || row.original.orderId, newStatus);
-                                                                row.original.status = newStatus;
-                                                            }}
-                                                        >
-                                                            {cell.getValue() ? <MdCheck /> : <MdCancel />}
-                                                        </Button>
-                                                    </Flex>
-                                                ) : cell.column.id === 'actions' ? (
-                                                    <Flex justifyContent="center" alignItems="center">
-                                                        <Button
-                                                            size="md"
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                handleDeleteOrder(row.original.id || row.original.orderId);
-                                                            }}
-                                                        >
-                                                            <MdDeleteForever color="purple.500" />
-                                                        </Button>
-                                                    </Flex>
-                                                ) : (
-                                                    flexRender(cell.column.columnDef.cell, cell.getContext())
-                                                )}
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                             </Td>
                                         ))}
                                     </Tr>
