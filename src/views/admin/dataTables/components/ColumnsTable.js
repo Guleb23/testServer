@@ -30,6 +30,7 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
+  TableContainer,
 } from '@chakra-ui/react';
 import { MdDelete } from "react-icons/md";
 import { FaEdit, FaSortUp, FaSortDown, FaSort } from "react-icons/fa";
@@ -382,79 +383,151 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
   };
 
   return (
-    <Card height="calc(100vh - 135px)" flexDirection="column" w="100%" px="0px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
-      <Flex px="25px" mb="8px" h={`12`} justify="space-between" align="center">
-        <Flex align="center" gap={3}>
-          <Text fontSize="22px" fontWeight="700" color={textColor}>
-            {tableType === 'products' ? 'Товары' : 'Клиенты'}
-          </Text>
-          <Button
-            borderRadius="50%"
-            width="40px"
-            height="40px"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            onClick={handleAdd}
-          >
-            <AddIcon boxSize={4} color="purple.500" />
-          </Button>
+    <>
+      <Card
+        height="calc(100vh - 135px)"
+        flexDirection="column"
+        w="100%"
+        px="0px"
+        overflow="hidden"
+        position="relative"
+      >
+        {/* Заголовок с кнопкой добавления */}
+        <Flex
+          px="25px"
+          mb="8px"
+          h="12"
+          justify="space-between"
+          align="center"
+          position="sticky"
+          top="0"
+          zIndex="1"
+          bg={useColorModeValue('white', 'gray.800')}
+          boxShadow="sm"
+        >
+          <Flex align="center" gap={3}>
+            <Text fontSize="22px" fontWeight="700" color={textColor}>
+              {tableType === 'products' ? 'Товары' : 'Клиенты'}
+            </Text>
+            <Button
+              borderRadius="50%"
+              width="40px"
+              height="40px"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              onClick={handleAdd}
+              colorScheme="purple"
+              variant="ghost"
+            >
+              <AddIcon boxSize={4} />
+            </Button>
+          </Flex>
+          <Menu
+            options={[
+              { label: 'Товары', action: () => setTableType('products') },
+              { label: 'Клиенты', action: () => setTableType('clients') },
+            ]}
+          />
         </Flex>
-        <Menu
-          options={[
-            { label: 'Товары', action: () => setTableType('products') },
-            { label: 'Клиенты', action: () => setTableType('clients') },
-          ]}
-        />
-      </Flex>
 
-      <Box overflowY="auto">
-        <Table height={`full`} variant="simple" color="gray.500" mb="24px" mt="12px" fontFamily="'Montserrat', sans-serif">
-          <Thead height={`40px`}>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <Tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <Th
-                    key={header.id}
-                    colSpan={header.colSpan}
-                    pe="10px"
-                    borderColor={borderColor}
-                    cursor="pointer"
-                    onClick={header.column.getToggleSortingHandler()}
-                  >
-                    <Flex justifyContent="space-between" align="center" fontSize={{ sm: '10px', lg: '14px' }} color="gray.400">
-                      {flexRender(header.column.columnDef.header, header.getContext())}
-                      {{
-                        asc: <ChevronUpIcon boxSize={4} />,
-                        desc: <ChevronDownIcon boxSize={4} />
-                      }[header.column.getIsSorted()]}
-                    </Flex>
-                  </Th>
+        {/* Контейнер таблицы с кастомным скроллом */}
+        <Box
+          flex="1"
+          overflowY="auto"
+          css={{
+            '&::-webkit-scrollbar': {
+              width: '8px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: useColorModeValue('#f1f1f1', '#2D3748'),
+            },
+            '&::-webkit-scrollbar-thumb': {
+              background: useColorModeValue('#cbd5e0', '#4A5568'),
+              borderRadius: '4px',
+            },
+          }}
+        >
+          <TableContainer>
+            <Table
+              variant="striped"
+              colorScheme={useColorModeValue('gray', 'blackAlpha')}
+              size="md"
+              fontFamily="'Montserrat', sans-serif"
+            >
+              {/* Заголовок таблицы */}
+              <Thead
+                position="sticky"
+                top="0"
+                zIndex="1"
+                bg={useColorModeValue('white', 'gray.800')}
+                boxShadow="sm"
+              >
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <Tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <Th
+                        key={header.id}
+                        colSpan={header.colSpan}
+                        pe="10px"
+                        borderColor={borderColor}
+                        cursor="pointer"
+                        onClick={header.column.getToggleSortingHandler()}
+                        whiteSpace="nowrap"
+                        textTransform="none" // Убираем uppercase
+                      >
+                        <Flex
+                          justify="space-between"
+                          align="center"
+                          fontSize={{ sm: '10px', lg: '14px' }}
+                          color="gray.400"
+                          gap={2}
+                        >
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                          {{
+                            asc: <ChevronUpIcon boxSize={3} />,
+                            desc: <ChevronDownIcon boxSize={3} />
+                          }[header.column.getIsSorted()] ?? <Box boxSize={3} />}
+                        </Flex>
+                      </Th>
+                    ))}
+                  </Tr>
                 ))}
-              </Tr>
-            ))}
-          </Thead>
+              </Thead>
 
-          <Tbody>
-            {table.getRowModel().rows.map((row) => (
-              <Tr key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <Td
-                    fontSize="md"
-                    fontWeight="700"
-                    color={textColor}
-                    minW="20px"
-                    borderColor="transparent"
-                    key={cell.id}
+              {/* Тело таблицы */}
+              <Tbody>
+                {table.getRowModel().rows.map((row) => (
+                  <Tr
+                    key={row.id}
+                    _hover={{
+                      bg: useColorModeValue('gray.50', 'whiteAlpha.100'),
+                      transform: 'scale(1.01)',
+                      transition: 'all 0.2s'
+                    }}
                   >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </Td>
+                    {row.getVisibleCells().map((cell) => (
+                      <Td
+                        key={cell.id}
+                        fontSize="sm"
+                        fontWeight="500"
+                        color={textColor}
+                        borderColor={borderColor}
+                        maxW="200px"
+                        overflow="hidden"
+                        textOverflow="ellipsis"
+                        whiteSpace="nowrap"
+                      >
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </Td>
+                    ))}
+                  </Tr>
                 ))}
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </Box>
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </Card>
 
       {/* Модальное окно для редактирования продукта */}
       <Modal isOpen={isModalOpen} onClose={handleCancel}>
@@ -630,6 +703,6 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
         title="Удаление клиента"
         message="Вы уверены, что хотите удалить этого клиента?"
       />
-    </Card>
+    </>
   );
 }
