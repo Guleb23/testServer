@@ -384,7 +384,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
 
   return (
     <>
-      <Card height="calc(100vh - 135px)" flexDirection="column" w="100%" px="0px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
+      <Card height="calc(100vh - 135px)" flexDirection="column" w="100%" px="0px" overflow="hidden">
         <Flex px="25px" mb="8px" h={`12`} justify="space-between" align="center">
           <Flex align="center" gap={3}>
             <Text fontSize="22px" fontWeight="700" color={textColor}>
@@ -411,18 +411,22 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
         </Flex>
 
         <Box
+          flex="1" // Добавлено
           overflowY="auto"
           css={{
             '&::-webkit-scrollbar': {
-              width: '6px',
-              height: '6px'
+              width: '8px', // Увеличено с 6px
             },
             '&::-webkit-scrollbar-track': {
-              background: useColorModeValue('gray.100', 'gray.700')
+              background: useColorModeValue('gray.100', 'gray.800'), // Темнее для темной темы
+              borderRadius: '4px' // Добавлено
             },
             '&::-webkit-scrollbar-thumb': {
-              background: useColorModeValue('gray.400', 'gray.500'),
-              borderRadius: '3px'
+              background: useColorModeValue('gray.400', 'gray.600'), // Контрастнее
+              borderRadius: '4px', // Добавлено
+              '&:hover': {
+                background: useColorModeValue('gray.500', 'gray.500') // Эффект при наведении
+              }
             }
           }}
         >

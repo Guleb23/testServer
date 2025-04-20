@@ -394,7 +394,7 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                 onDelete={confirmDeleteOrder}
                 orderId={orderToDelete}
             />
-            <Card w="100%" height="calc(100vh - 135px)" px="0px" overflowX={{ sm: 'scroll', lg: 'hidden' }} display="flex" flexDirection="column">
+            <Card w="100%" height="calc(100vh - 135px)" px="0px" overflow="hidden" display="flex" flexDirection="column">
                 {/* Заголовок - фиксированная шапка */}
                 <Flex
                     px="25px"
@@ -423,17 +423,21 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                 {/* Таблица в скролл-контейнере */}
                 <Box
                     overflowY="auto"
+                    flex="1"
                     css={{
                         '&::-webkit-scrollbar': {
-                            width: '6px',
-                            height: '6px'
+                            width: '8px', // Увеличено с 6px
                         },
                         '&::-webkit-scrollbar-track': {
-                            background: useColorModeValue('gray.100', 'gray.700')
+                            background: useColorModeValue('gray.100', 'gray.800'), // Темнее для темной темы
+                            borderRadius: '4px' // Добавлено
                         },
                         '&::-webkit-scrollbar-thumb': {
-                            background: useColorModeValue('gray.400', 'gray.500'),
-                            borderRadius: '3px'
+                            background: useColorModeValue('gray.400', 'gray.600'), // Контрастнее
+                            borderRadius: '4px', // Добавлено
+                            '&:hover': {
+                                background: useColorModeValue('gray.500', 'gray.500') // Эффект при наведении
+                            }
                         }
                     }}
                 >
