@@ -384,27 +384,8 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
 
   return (
     <>
-      <Card
-        height="calc(100vh - 135px)"
-        flexDirection="column"
-        w="100%"
-        px="0px"
-        overflow="hidden"
-        position="relative"
-      >
-        {/* Заголовок с кнопкой добавления */}
-        <Flex
-          px="25px"
-          mb="8px"
-          h="12"
-          justify="space-between"
-          align="center"
-          position="sticky"
-          top="0"
-          zIndex="1"
-          bg={useColorModeValue('white', 'gray.800')}
-          boxShadow="sm"
-        >
+      <Card height="calc(100vh - 135px)" flexDirection="column" w="100%" px="0px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
+        <Flex px="25px" mb="8px" h={`12`} justify="space-between" align="center">
           <Flex align="center" gap={3}>
             <Text fontSize="22px" fontWeight="700" color={textColor}>
               {tableType === 'products' ? 'Товары' : 'Клиенты'}
@@ -417,10 +398,8 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
               justifyContent="center"
               alignItems="center"
               onClick={handleAdd}
-              colorScheme="purple"
-              variant="ghost"
             >
-              <AddIcon boxSize={4} />
+              <AddIcon boxSize={4} color="purple.500" />
             </Button>
           </Flex>
           <Menu
@@ -431,101 +410,67 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
           />
         </Flex>
 
-        {/* Контейнер таблицы с кастомным скроллом */}
         <Box
-          flex="1"
           overflowY="auto"
           css={{
             '&::-webkit-scrollbar': {
-              width: '8px',
+              width: '6px',
+              height: '6px'
             },
             '&::-webkit-scrollbar-track': {
-              background: useColorModeValue('#f1f1f1', '#2D3748'),
+              background: useColorModeValue('gray.100', 'gray.700')
             },
             '&::-webkit-scrollbar-thumb': {
-              background: useColorModeValue('#cbd5e0', '#4A5568'),
-              borderRadius: '4px',
-            },
+              background: useColorModeValue('gray.400', 'gray.500'),
+              borderRadius: '3px'
+            }
           }}
         >
-          <TableContainer>
-            <Table
-              variant="striped"
-              colorScheme={useColorModeValue('gray', 'blackAlpha')}
-              size="md"
-              fontFamily="'Montserrat', sans-serif"
-            >
-              {/* Заголовок таблицы */}
-              <Thead
-                position="sticky"
-                top="0"
-                zIndex="1"
-                bg={useColorModeValue('white', 'gray.800')}
-                boxShadow="sm"
-              >
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <Tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <Th
-                        key={header.id}
-                        colSpan={header.colSpan}
-                        pe="10px"
-                        borderColor={borderColor}
-                        cursor="pointer"
-                        onClick={header.column.getToggleSortingHandler()}
-                        whiteSpace="nowrap"
-                        textTransform="none" // Убираем uppercase
-                      >
-                        <Flex
-                          justify="space-between"
-                          align="center"
-                          fontSize={{ sm: '10px', lg: '14px' }}
-                          color="gray.400"
-                          gap={2}
-                        >
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                          {{
-                            asc: <ChevronUpIcon boxSize={3} />,
-                            desc: <ChevronDownIcon boxSize={3} />
-                          }[header.column.getIsSorted()] ?? <Box boxSize={3} />}
-                        </Flex>
-                      </Th>
-                    ))}
-                  </Tr>
-                ))}
-              </Thead>
+          <Table height={`full`} variant="simple" color="gray.500" mb="24px" mt="12px" fontFamily="'Montserrat', sans-serif">
+            <Thead height={`40px`}>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <Tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <Th
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      pe="10px"
+                      borderColor={borderColor}
+                      cursor="pointer"
+                      onClick={header.column.getToggleSortingHandler()}
+                    >
+                      <Flex justifyContent="space-between" align="center" fontSize={{ sm: '10px', lg: '14px' }} color="gray.400">
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                        {{
+                          asc: <ChevronUpIcon boxSize={4} />,
+                          desc: <ChevronDownIcon boxSize={4} />
+                        }[header.column.getIsSorted()]}
+                      </Flex>
+                    </Th>
+                  ))}
+                </Tr>
+              ))}
+            </Thead>
 
-              {/* Тело таблицы */}
-              <Tbody>
-                {table.getRowModel().rows.map((row) => (
-                  <Tr
-                    key={row.id}
-                    _hover={{
-                      bg: useColorModeValue('gray.50', 'whiteAlpha.100'),
-                      transform: 'scale(1.01)',
-                      transition: 'all 0.2s'
-                    }}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <Td
-                        key={cell.id}
-                        fontSize="sm"
-                        fontWeight="500"
-                        color={textColor}
-                        borderColor={borderColor}
-                        maxW="200px"
-                        overflow="hidden"
-                        textOverflow="ellipsis"
-                        whiteSpace="nowrap"
-                      >
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </Td>
-                    ))}
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </TableContainer>
+            <Tbody>
+              {table.getRowModel().rows.map((row) => (
+                <Tr key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <Td
+                      fontSize="md"
+                      fontWeight="700"
+                      color={textColor}
+                      minW="20px"
+                      borderColor="transparent"
+                      key={cell.id}
+                    >
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </Td>
+                  ))}
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
         </Box>
       </Card>
 
