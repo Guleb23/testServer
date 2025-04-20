@@ -412,43 +412,22 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
           />
         </Flex>
 
-        <Box
-          flex="1"
-          overflowY="auto"
-          css={{
-            '&::-webkit-scrollbar': {
-              width: '8px',
-            },
-            '&::-webkit-scrollbar-track': {
-              background: useColorModeValue('gray.100', 'gray.800'),
-              borderRadius: '4px'
-            },
-            '&::-webkit-scrollbar-thumb': {
-              background: useColorModeValue('gray.400', 'gray.600'),
-              borderRadius: '4px',
-              '&:hover': {
-                background: useColorModeValue('gray.500', 'gray.500')
-              }
-            }
-          }}
-          sx={{
-            '& > div': {
-              '&::-webkit-scrollbar': {
-                display: 'none'
-              },
-              '-ms-overflow-style': 'none',
-              'scrollbar-width': 'none'
-            }
-          }}
-        >
+        <Box flex="1">
           <Scrollbars
+            autoHide
             renderTrackVertical={renderTrack}
             renderThumbVertical={renderThumb}
             renderView={renderView}
-            autoHide
           >
-            <Table height={`full`} variant="simple" color="gray.500" mb="24px" mt="12px" fontFamily="'Montserrat', sans-serif">
-              <Thead height={`40px`}>
+            <Table
+              height="full"
+              variant="simple"
+              color="gray.500"
+              mb="24px"
+              mt="12px"
+              fontFamily="'Montserrat', sans-serif"
+            >
+              <Thead height="40px">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <Tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
@@ -460,11 +439,16 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
                         cursor="pointer"
                         onClick={header.column.getToggleSortingHandler()}
                       >
-                        <Flex justifyContent="space-between" align="center" fontSize={{ sm: '10px', lg: '14px' }} color="gray.400">
+                        <Flex
+                          justifyContent="space-between"
+                          align="center"
+                          fontSize={{ sm: '10px', lg: '14px' }}
+                          color="gray.400"
+                        >
                           {flexRender(header.column.columnDef.header, header.getContext())}
                           {{
                             asc: <ChevronUpIcon boxSize={4} />,
-                            desc: <ChevronDownIcon boxSize={4} />
+                            desc: <ChevronDownIcon boxSize={4} />,
                           }[header.column.getIsSorted()]}
                         </Flex>
                       </Th>
