@@ -44,6 +44,7 @@ import { useAuth } from 'contexts/AuthContext';
 import { AddIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import CreateOrderModal from '../Modals/CreateOrderModal';
 import { IoMdPricetag } from 'react-icons/io';
+import DeleteOrderDialog from '../Modals/DeleteOrderDialog';
 
 const columnHelper = createColumnHelper();
 

@@ -1,3 +1,5 @@
+/* eslint-disable */
+import * as React from 'react';
 import {
   Flex,
   Box,
@@ -31,7 +33,6 @@ import {
 } from '@chakra-ui/react';
 import { MdDelete } from "react-icons/md";
 import { FaEdit, FaSortUp, FaSortDown, FaSort } from "react-icons/fa";
-import * as React from 'react';
 import {
   createColumnHelper,
   flexRender,
@@ -39,16 +40,54 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { AddIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
+
 import Card from 'components/card/Card';
 import Menu from 'components/menu/MainMenu';
-const columnHelper = createColumnHelper();
-import { AddIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import CreateProductModal from '../Modals/CreateProductModal';
 import CreateClientModal from '../Modals/CreateClientModal';
 import { useAuth } from 'contexts/AuthContext';
 import axios from '../../../../api/axios';
 import CreateCategoryModal from '../Modals/CreateCategoryModal';
 
+const columnHelper = createColumnHelper();
+
+const DeleteDialog = ({
+  isOpen,
+  onClose,
+  onConfirm,
+  title = "Удаление",
+  message = "Вы уверены? Это действие нельзя отменить."
+}) => {
+  const cancelRef = React.useRef();
+
+  return (
+    <AlertDialog
+      isOpen={isOpen}
+      leastDestructiveRef={cancelRef}
+      onClose={onClose}
+    >
+      <AlertDialogOverlay>
+        <AlertDialogContent>
+          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+            {title}
+          </AlertDialogHeader>
+          <AlertDialogBody>
+            {message}
+          </AlertDialogBody>
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={onClose}>
+              Отмена
+            </Button>
+            <Button colorScheme="red" onClick={onConfirm} ml={3}>
+              Удалить
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialogOverlay>
+    </AlertDialog>
+  );
+};
 
 export default function ColumnTable({ onAllUpdate, productsData = [], clientsData = [], categories, onDeleteProduct, onEditProduct, onDeleteClient, onEditClient }) {
   const inputBg = useColorModeValue("white", "gray.700");
@@ -60,6 +99,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
   const [newProduct, setNewProduct] = React.useState({ name: "", price: "", category: "", weight: "" });
   const [newCategory, setNewCategory] = React.useState({ name: "" });
   const [selectedClient, setSelectedClient] = React.useState(null);
+  const toast = useToast();
   const [clientFormData, setClientFormData] = React.useState({
     id: '',
     fullName: '',
@@ -340,42 +380,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
     onAllUpdate();
     setIsModalOpen(false);
   };
-  const DeleteDialog = ({
-    isOpen,
-    onClose,
-    onConfirm,
-    title = "Удаление",
-    message = "Вы уверены? Это действие нельзя отменить."
-  }) => {
-    const cancelRef = React.useRef();
 
-    return (
-      <AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              {title}
-            </AlertDialogHeader>
-            <AlertDialogBody>
-              {message}
-            </AlertDialogBody>
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose}>
-                Отмена
-              </Button>
-              <Button colorScheme="red" onClick={onConfirm} ml={3}>
-                Удалить
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
-    );
-  };
   return (
     <Card height="calc(100vh - 135px)" flexDirection="column" w="100%" px="0px" overflowX={{ sm: 'scroll', lg: 'hidden' }}>
       <Flex px="25px" mb="8px" h={`12`} justify="space-between" align="center">
