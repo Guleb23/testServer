@@ -422,13 +422,8 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                 </Flex>
 
                 {/* Таблица в скролл-контейнере */}
-                <Box flex="1" >
-                    <Scrollbars
-                        style={{ height: '100%' }}
-                        renderTrackVertical={renderTrack}
-                        renderThumbVertical={renderThumb}
-                        renderView={renderView}
-                    >
+                <Box flex="1">
+                    <Scrollbars style={{ height: '100%' }} autoHide>
                         <Table
                             variant="simple"
                             color="gray.500"
@@ -461,6 +456,7 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                                     </Tr>
                                 ))}
                             </Thead>
+
                             <Tbody>
                                 {table.getRowModel().rows.map(row => (
                                     <Tr
