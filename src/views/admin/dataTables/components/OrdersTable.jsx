@@ -424,7 +424,7 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                 {/* Таблица в скролл-контейнере */}
                 <Box flex="1">
                     <Scrollbars
-                        autoHide
+                        style={{ height: '100%' }}
                         renderTrackVertical={renderTrack}
                         renderThumbVertical={renderThumb}
                         renderView={renderView}
