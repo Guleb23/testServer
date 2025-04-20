@@ -422,7 +422,7 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                 </Flex>
 
                 {/* Таблица в скролл-контейнере */}
-                <Box flex="1">
+                <Box flex="1" h="calc(100vh - 200px)">
                     <Scrollbars
                         style={{ height: '100%' }}
                         renderTrackVertical={renderTrack}

@@ -412,7 +412,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
           />
         </Flex>
 
-        <Box flex="1">
+        <Box flex="1" h="calc(100vh - 200px)">
           <Scrollbars
             style={{ height: '100%' }}
             renderTrackVertical={renderTrack}
