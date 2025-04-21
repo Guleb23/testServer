@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Box,
     Button,
-    Checkbox,
     Flex,
     FormControl,
-    FormLabel,
+    FormErrorMessage,
     Heading,
     Icon,
     Input,
@@ -13,7 +12,8 @@ import {
     InputRightElement,
     Text,
     useColorModeValue,
-    VStack,
+    Progress,
+    Stack,
     useToast,
 } from "@chakra-ui/react";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -23,6 +23,57 @@ import { registerUser } from "api/registerUser";
 import DefaultAuth from "layouts/auth/Default";
 import illustration from "assets/img/auth/auth.png";
 import { useAuth } from "contexts/AuthContext";
+
+const PasswordStrengthIndicator = ({ password }) => {
+    const calculateStrength = (pass) => {
+        let score = 0;
+
+        // Длина пароля
+        if (pass.length > 0) score += 5;
+        if (pass.length >= 8) score += 15;
+        if (pass.length >= 12) score += 20;
+
+        // Разнообразие символов
+        if (/[A-Z]/.test(pass)) score += 15;
+        if (/[a-z]/.test(pass)) score += 15;
+        if (/[0-9]/.test(pass)) score += 15;
+        if (/[^A-Za-z0-9]/.test(pass)) score += 15;
+
+        return Math.min(100, score);
+    };
+
+    const strength = calculateStrength(password);
+    let color = "red";
+    let label = "Слабый";
+
+    if (strength >= 60) {
+        color = "yellow";
+        label = "Средний";
+    }
+    if (strength >= 80) {
+        color = "green";
+        label = "Сильный";
+    }
+
+    return (
+        <Box mt={2} mb={4}>
+            <Progress
+                value={strength}
+                size="xs"
+                colorScheme={color}
+                borderRadius="full"
+            />
+            <Flex justifyContent="space-between" mt={1}>
+                <Text fontSize="xs" color="gray.500">
+                    Сложность пароля:
+                </Text>
+                <Text fontSize="xs" color={`${color}.500`} fontWeight="bold">
+                    {label}
+                </Text>
+            </Flex>
+        </Box>
+    );
+};
 
 export default function SignUp() {
     const [showPassword, setShowPassword] = useState(false);
@@ -34,6 +85,20 @@ export default function SignUp() {
         password: "",
         confirmPassword: "",
     });
+    const [errors, setErrors] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    });
+    const [touched, setTouched] = useState({
+        firstName: false,
+        lastName: false,
+        email: false,
+        password: false,
+        confirmPassword: false,
+    });
 
     const toast = useToast();
     const navigate = useNavigate();
@@ -43,13 +108,93 @@ export default function SignUp() {
     const textColorBrand = useColorModeValue("brand.500", "white");
 
     const handleChange = (e) => {
-        setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+
+        // Валидация при изменении
+        if (touched[name]) {
+            validateField(name, value);
+        }
+    };
+
+    const handleBlur = (e) => {
+        const { name } = e.target;
+        setTouched((prev) => ({ ...prev, [name]: true }));
+        validateField(name, formData[name]);
+    };
+
+    const validateField = (name, value) => {
+        let error = "";
+
+        switch (name) {
+            case "firstName":
+            case "lastName":
+                if (!value.trim()) {
+                    error = "Обязательное поле";
+                } else if (value.length < 2) {
+                    error = "Минимум 2 символа";
+                }
+                break;
+            case "email":
+                if (!value.trim()) {
+                    error = "Обязательное поле";
+                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                    error = "Некорректный email";
+                }
+                break;
+            case "password":
+                if (!value) {
+                    error = "Обязательное поле";
+                } else if (value.length < 8) {
+                    error = "Пароль должен содержать минимум 8 символов";
+                } else if (!/[A-Z]/.test(value)) {
+                    error = "Добавьте хотя бы одну заглавную букву";
+                } else if (!/[a-z]/.test(value)) {
+                    error = "Добавьте хотя бы одну строчную букву";
+                } else if (!/[0-9]/.test(value)) {
+                    error = "Добавьте хотя бы одну цифру";
+                } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+                    error = "Добавьте хотя бы один спецсимвол";
+                }
+                break;
+            case "confirmPassword":
+                if (!value) {
+                    error = "Обязательное поле";
+                } else if (value !== formData.password) {
+                    error = "Пароли не совпадают";
+                }
+                break;
+            default:
+                break;
+        }
+
+        setErrors((prev) => ({ ...prev, [name]: error }));
+        return !error;
+    };
+
+    const validateForm = () => {
+        let isValid = true;
+        const newTouched = {
+            firstName: true,
+            lastName: true,
+            email: true,
+            password: true,
+            confirmPassword: true,
+        };
+        setTouched(newTouched);
+
+        Object.keys(formData).forEach((field) => {
+            const fieldValid = validateField(field, formData[field]);
+            isValid = isValid && fieldValid;
+        });
+
+        return isValid;
     };
 
     const handleRegister = async () => {
-        if (formData.password !== formData.confirmPassword) {
+        if (!validateForm()) {
             toast({
-                title: "Пароли не совпадают",
+                title: "Пожалуйста, исправьте ошибки в форме",
                 status: "error",
                 duration: 3000,
                 isClosable: true,
@@ -90,9 +235,7 @@ export default function SignUp() {
                 h='100%'
                 alignItems='start'
                 justifyContent='center'
-
                 px={{ base: "25px", md: "0px" }}
-
                 flexDirection='column'>
                 <Box me='auto'>
                     <Heading color={textColor} fontSize='36px' mb='10px'>
@@ -117,44 +260,44 @@ export default function SignUp() {
                     mx={{ base: "auto", lg: "unset" }}
                     me='auto'
                 >
-
-                    <FormControl>
+                    <FormControl mb='24px' isInvalid={!!errors.firstName && touched.firstName}>
                         <Input
-
                             isRequired={true}
                             variant='auth'
                             fontSize='sm'
                             name="firstName"
                             ms={{ base: "0px", md: "0px" }}
                             placeholder='Ваше имя'
-                            mb='24px'
+
                             value={formData.firstName}
                             onChange={handleChange}
+                            onBlur={handleBlur}
                             fontWeight='500'
                             size='lg'
                         />
+                        <FormErrorMessage>{errors.firstName}</FormErrorMessage>
                     </FormControl>
 
-                    <FormControl>
+                    <FormControl mb='24px' isInvalid={!!errors.lastName && touched.lastName}>
                         <Input
-
                             isRequired={true}
                             variant='auth'
                             fontSize='sm'
                             name="lastName"
                             ms={{ base: "0px", md: "0px" }}
                             placeholder='Ваша фамилия'
-                            mb='24px'
+
                             value={formData.lastName}
                             onChange={handleChange}
+                            onBlur={handleBlur}
                             fontWeight='500'
                             size='lg'
                         />
+                        <FormErrorMessage>{errors.lastName}</FormErrorMessage>
                     </FormControl>
 
-                    <FormControl>
+                    <FormControl mb='24px' isInvalid={!!errors.email && touched.email}>
                         <Input
-
                             isRequired={true}
                             variant='auth'
                             fontSize='sm'
@@ -162,28 +305,30 @@ export default function SignUp() {
                             ms={{ base: "0px", md: "0px" }}
                             type='email'
                             placeholder='mail@simmmple.com'
-                            mb='24px'
+
                             value={formData.email}
                             onChange={handleChange}
+                            onBlur={handleBlur}
                             fontWeight='500'
                             size='lg'
                         />
+                        <FormErrorMessage>{errors.email}</FormErrorMessage>
                     </FormControl>
 
-                    <FormControl>
-
-                        <InputGroup>
+                    <FormControl mb='8px' isInvalid={!!errors.password && touched.password}>
+                        <InputGroup >
                             <Input
                                 type={showPassword ? "text" : "password"}
                                 name="password"
                                 value={formData.password}
                                 onChange={handleChange}
+                                onBlur={handleBlur}
                                 placeholder="Введите пароль"
                                 isRequired={true}
                                 variant='auth'
                                 fontSize='sm'
                                 ms={{ base: "0px", md: "0px" }}
-                                mb='24px'
+
                                 fontWeight='500'
                                 size='lg'
                             />
@@ -194,28 +339,39 @@ export default function SignUp() {
                                     onClick={() => setShowPassword(!showPassword)}
                                 />
                             </InputRightElement>
+
                         </InputGroup>
+                        <FormErrorMessage>{errors.password}</FormErrorMessage>
+                        {formData.password && (
+                            <PasswordStrengthIndicator password={formData.password} />
+                        )}
+
+                        <Text fontSize="xs" color="gray.500" mt={2}>
+                            Пароль должен содержать минимум 8 символов, включая заглавные и строчные буквы, цифры и специальные символы
+                        </Text>
+
+
                     </FormControl>
 
-                    <FormControl>
-
+                    <FormControl mb='24px' isInvalid={!!errors.confirmPassword && touched.confirmPassword}>
                         <Input
                             type="password"
                             name="confirmPassword"
                             value={formData.confirmPassword}
                             onChange={handleChange}
+                            onBlur={handleBlur}
                             placeholder="Подтвердите пароль"
                             isRequired={true}
                             variant='auth'
                             fontSize='sm'
                             ms={{ base: "0px", md: "0px" }}
-                            mb='24px'
+
                             fontWeight='500'
                             size='lg'
                         />
+                        <FormErrorMessage>{errors.confirmPassword}</FormErrorMessage>
                     </FormControl>
                 </Flex>
-
 
                 <Button
                     variant="brand"
