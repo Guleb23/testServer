@@ -225,7 +225,7 @@ export default function SignUp() {
     };
 
     return (
-        <DefaultAuth illustrationBackground={illustration} image={illustration}>
+        <DefaultAuth illustrationBackground={illustration} >
             <Flex
                 overflow="hidden"
                 maxW={{ base: "100%", md: "max-content" }}
