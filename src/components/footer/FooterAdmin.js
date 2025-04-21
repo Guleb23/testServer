@@ -49,7 +49,7 @@ export default function Footer() {
           <Link
             fontWeight='500'
             color={textColor}
-            href='https://github.com/avnva/Web-application-for-sales-accounting'>
+            href=''>
             Лицензия
           </Link>
         </ListItem>
@@ -61,7 +61,7 @@ export default function Footer() {
           <Link
             fontWeight='500'
             color={textColor}
-            href='https://github.com/avnva/Web-application-for-sales-accounting'>
+            href=''>
             Документация
           </Link>
         </ListItem>
