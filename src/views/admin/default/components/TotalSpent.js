@@ -97,9 +97,15 @@ export default function TotalSpent({ tableDataTotalSpent, ...rest }) {
     ];
 
     return dates.map(date => {
-      const [month, year] = date.split('.');  // Разделяем строку по точке
-      const monthName = monthNames[parseInt(month, 10) - 1];  // Преобразуем месяц в название
-      return `${monthName} ${year}`;  // Возвращаем строку вида "Март 2025"
+      // Проверяем, является ли date строкой и содержит ли она точку
+      if (typeof date === "string" && date.includes(".")) {
+        const [month, year] = date.split('.');  // Разделяем строку по точке
+        const monthName = monthNames[parseInt(month, 10) - 1];  // Преобразуем месяц в название
+        return `${monthName} ${year}`;  // Возвращаем строку вида "Март 2025"
+      } else {
+        console.warn("Некорректный формат даты:", date);
+        return "";  // Возвращаем пустую строку или что-то по умолчанию, если дата некорректна
+      }
     });
   };
 
