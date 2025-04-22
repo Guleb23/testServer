@@ -90,14 +90,27 @@ export default function TotalSpent({ tableDataTotalSpent, ...rest }) {
     });
   };
 
+  const getMonthLabels = (dates) => {
+    const monthNames = [
+      "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+      "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+    ];
+
+    return dates.map(date => {
+      const [month, year] = date.split('.');  // Разделяем строку по точке
+      const monthName = monthNames[parseInt(month, 10) - 1];  // Преобразуем месяц в название
+      return `${monthName} ${year}`;  // Возвращаем строку вида "Март 2025"
+    });
+  };
+
   const chartOptions = useMemo(() => {
     return {
       ...commonChartOptions,
       xaxis: {
         type: "category",
         categories: totalSpentTimePeriod === "months"
-          ? ["Октябрь", "Ноябрь", "Декабрь", "Январь", "Февраль", "Март"]
-          : getWeekDaysLabels(tableDataTotalSpent?.week?.categories || []),  // Преобразуем даты в дни недели
+          ? getMonthLabels([10, 11, 12, 1, 2, 3])  // Используйте индексы для месяцев
+          : getWeekDaysLabels(tableDataTotalSpent?.week?.categories || []),
         labels: {
           style: {
             colors: "#A3AED0",
