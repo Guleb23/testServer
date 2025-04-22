@@ -97,15 +97,9 @@ export default function TotalSpent({ tableDataTotalSpent, ...rest }) {
     ];
 
     return dates.map(date => {
-      // Проверяем, является ли date строкой и содержит ли она точку
-      if (typeof date === "string" && date.includes(".")) {
-        const [month, year] = date.split('.');  // Разделяем строку по точке
-        const monthName = monthNames[parseInt(month, 10) - 1];  // Преобразуем месяц в название
-        return `${monthName} ${year}`;  // Возвращаем строку вида "Март 2025"
-      } else {
-        console.warn("Некорректный формат даты:", date);
-        return "";  // Возвращаем пустую строку или что-то по умолчанию, если дата некорректна
-      }
+      const [month, year] = date.split('.');  // Разделяем строку по точке
+      const monthName = monthNames[parseInt(month, 10) - 1];  // Преобразуем месяц в название
+      return `${monthName} ${year}`;  // Возвращаем строку вида "Март 2025"
     });
   };
 
@@ -115,7 +109,7 @@ export default function TotalSpent({ tableDataTotalSpent, ...rest }) {
       xaxis: {
         type: "category",
         categories: totalSpentTimePeriod === "months"
-          ? getMonthLabels([10, 11, 12, 1, 2, 3])  // Используйте индексы для месяцев
+          ? getMonthLabels(tableDataTotalSpent?.halfYear?.categories || [])
           : getWeekDaysLabels(tableDataTotalSpent?.week?.categories || []),
         labels: {
           style: {
