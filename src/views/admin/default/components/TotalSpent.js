@@ -124,7 +124,6 @@ export default function TotalSpent({ tableDataTotalSpent, ...rest }) {
       },
       yaxis: {
         labels: {
-          formatter: (val) => Math.round(val),
           style: {
             colors: "#A3AED0",
             fontSize: "11px",
@@ -134,7 +133,13 @@ export default function TotalSpent({ tableDataTotalSpent, ...rest }) {
       },
       tooltip: {
         y: {
-          formatter: (val) => Math.round(val),
+          formatter: function (val, { seriesIndex, w }) {
+            const name = w.config.series[seriesIndex]?.name;
+            if (name === "Продажи") {
+              return Math.round(val);
+            }
+            return val.toFixed(2); // например, 1.91
+          },
         },
       },
     };
