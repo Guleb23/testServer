@@ -72,10 +72,7 @@ export default function TotalSpent({ tableDataTotalSpent, ...rest }) {
 
       if (dataBlock) {
         setRevenue(dataBlock.revenue ?? 0);
-        const roundedData = dataBlock.lineChartData[1]?.data.map(series => ({
-          ...series,
-          data: series.data.map(value => Math.round(value)),
-        })) ?? [];
+
         setLineChartData(dataBlock.lineChartData ?? []);
       } else {
         setRevenue(0);
@@ -125,8 +122,24 @@ export default function TotalSpent({ tableDataTotalSpent, ...rest }) {
         axisBorder: { show: false },
         axisTicks: { show: false },
       },
+      yaxis: {
+        labels: {
+          formatter: (val) => Math.round(val),
+          style: {
+            colors: "#A3AED0",
+            fontSize: "11px",
+            fontWeight: "500",
+          },
+        },
+      },
+      tooltip: {
+        y: {
+          formatter: (val) => Math.round(val),
+        },
+      },
     };
   }, [totalSpentTimePeriod, tableDataTotalSpent]);
+
 
   if (!lineChartData || lineChartData.length === 0) {
     return null;
