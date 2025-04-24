@@ -147,7 +147,7 @@ export default function TotalSpent({ tableDataTotalSpent, ...rest }) {
       <Flex w="100%" flexDirection={{ base: "column", lg: "row" }}>
         <Flex flexDirection="column" me="20px" mt="28px">
           <Text color={textColor} fontSize="34px" textAlign="start" fontWeight="700" lineHeight="100%">
-            {revenue.toFixed(0)}
+            {revenue}
           </Text>
           <Flex align="center" mb="20px">
             <Text color="secondaryGray.600" fontSize="sm" fontWeight="500" mt="4px" me="12px">
