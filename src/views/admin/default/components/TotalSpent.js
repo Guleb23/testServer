@@ -72,6 +72,10 @@ export default function TotalSpent({ tableDataTotalSpent, ...rest }) {
 
       if (dataBlock) {
         setRevenue(dataBlock.revenue ?? 0);
+        const roundedData = dataBlock.lineChartData[1]?.data.map(series => ({
+          ...series,
+          data: series.data.map(value => Math.round(value)),
+        })) ?? [];
         setLineChartData(dataBlock.lineChartData ?? []);
       } else {
         setRevenue(0);
