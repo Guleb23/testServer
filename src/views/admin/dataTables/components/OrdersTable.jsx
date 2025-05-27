@@ -463,7 +463,7 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                             onClick={exportToExcelProduct}
 
                         >
-                            <RiFileExcel2Line style={{ width: '100%', height: '100%', color: 'purple.500' }} color="purple.500" />
+                            <img src='/excel.svg' width={26} height={26} />
                         </Button>
                         <Button
                             borderRadius="50%"
@@ -474,7 +474,7 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                             alignItems="center"
                             onClick={onOpenFilter}
                         >
-                            <FaFilter style={{ width: '100%', height: '100%', color: 'purple.500' }} color="purple.500" />
+                            <img src='/filter.svg' width={26} height={26} />
                         </Button>
                         <Button
                             borderRadius="50%"
