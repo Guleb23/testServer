@@ -458,7 +458,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
                 onClick={onOpenFilter}
 
               >
-                <FaFilter size={20} color="purple.500" />
+                <FaFilter style={{ width: '100%', height: '100%', color: 'purple.500' }} color="purple.500" />
               </Button> : ''}
             {tableType === 'products' ?
               <Button
@@ -471,7 +471,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
                 onClick={exportToExcelProduct}
 
               >
-                <RiFileExcel2Line size={20} color="purple.500" />
+                <RiFileExcel2Line style={{ width: '100%', height: '100%', color: 'purple.500' }} color="purple.500" />
               </Button> : ""}
             {tableType != 'products' ? <Button
               borderRadius="50%"
@@ -483,7 +483,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
               onClick={exportToExcel}
 
             >
-              <RiFileExcel2Line size={20} color="purple.500" />
+              <RiFileExcel2Line style={{ width: '100%', height: '100%', color: 'purple.500' }} color="purple.500" />
             </Button> : ""}
           </Flex>
           <Menu
