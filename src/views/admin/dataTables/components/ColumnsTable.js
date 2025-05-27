@@ -471,7 +471,8 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
                 onClick={exportToExcelProduct}
 
               >
-                <RiFileExcel2Line style={{ width: '100%', height: '100%', color: 'purple.500' }} color="purple.500" />
+                <img src='/excel.svg' width={16} height={16} />
+
               </Button> : ""}
             {tableType != 'products' ? <Button
               borderRadius="50%"
@@ -483,7 +484,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
               onClick={exportToExcel}
 
             >
-              <RiFileExcel2Line style={{ width: '100%', height: '100%', color: 'purple.500' }} color="purple.500" />
+              <img src='/excel.svg' width={16} height={16} />
             </Button> : ""}
           </Flex>
           <Menu
