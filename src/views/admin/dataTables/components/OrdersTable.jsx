@@ -464,7 +464,7 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                             onClick={exportToExcelProduct}
 
                         >
-                            <img src='/excel.svg' width={26} height={26} />
+                            <img src='/excel.svg' width={16} height={16} />
                         </Button>
                         <Button
                             borderRadius="50%"
@@ -476,7 +476,7 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                             alignItems="center"
                             onClick={onOpenFilter}
                         >
-                            <img src='/filter.svg' width={26} height={26} />
+                            <img src='/filter.svg' width={16} height={16} />
                         </Button>
                         <Button
                             borderRadius="50%"
