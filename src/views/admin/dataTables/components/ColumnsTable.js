@@ -455,6 +455,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
+                padding={0}
                 onClick={onOpenFilter}
 
               >
@@ -468,6 +469,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
+                padding={0}
                 onClick={exportToExcelProduct}
 
               >
@@ -481,6 +483,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
               display="flex"
               justifyContent="center"
               alignItems="center"
+              padding={0}
               onClick={exportToExcel}
 
             >
