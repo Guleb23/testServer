@@ -460,6 +460,7 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                             display="flex"
                             justifyContent="center"
                             alignItems="center"
+                            padding={0}
                             onClick={exportToExcelProduct}
 
                         >
@@ -470,6 +471,7 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                             width="40px"
                             height="40px"
                             display="flex"
+                            padding={0}
                             justifyContent="center"
                             alignItems="center"
                             onClick={onOpenFilter}
