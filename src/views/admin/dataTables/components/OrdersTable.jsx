@@ -1024,10 +1024,10 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme="purple" mr={3} onClick={onCloseFilter}>
+                        <Button colorScheme="blue" mr={3} onClick={onCloseFilter}>
                             Применить
                         </Button>
-                        <Button variant="ghost" onClick={() => {
+                        <Button colorScheme="red" onClick={() => {
                             setFilterValues({
                                 minSum: '',
                                 maxSum: '',
@@ -1037,6 +1037,7 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                             });
                             onCloseFilter();
                         }}>Сбросить</Button>
+
                     </ModalFooter>
                 </ModalContent>
             </Modal>

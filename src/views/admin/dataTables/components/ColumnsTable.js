@@ -463,8 +463,8 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
             {tableType === 'products' ?
               <Button
                 borderRadius="50%"
-                width="60px"
-                height="60px"
+                width="40px"
+                height="40px"
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
@@ -473,8 +473,17 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
               >
                 <RiFileExcel2Line size={20} color="purple.500" />
               </Button> : ""}
-            {tableType != 'products' ? <Button onClick={exportToExcel} colorScheme="green">
-              Выгрузить в Excel
+            {tableType != 'products' ? <Button
+              borderRadius="50%"
+              width="40px"
+              height="40px"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              onClick={exportToExcel}
+
+            >
+              <RiFileExcel2Line size={20} color="purple.500" />
             </Button> : ""}
           </Flex>
           <Menu
@@ -571,10 +580,10 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
             </VStack>
           </ModalBody>
           <ModalFooter>
-            <Button mr={3} onClick={onCloseFilter}>
+            <Button colorScheme='blue' mr={3} onClick={onCloseFilter}>
               Применить
             </Button>
-            <Button variant="ghost" onClick={() => {
+            <Button colorScheme='red' onClick={() => {
               setFilterValues({ category: '', minPrice: '', maxPrice: '' });
               onCloseFilter();
             }}>
