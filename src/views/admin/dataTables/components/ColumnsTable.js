@@ -458,7 +458,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
                 onClick={onOpenFilter}
 
               >
-                <FaFilter style={{ width: '100%', height: '100%', color: 'purple.500' }} color="purple.500" />
+                <img src='/filter.svg' width={26} height={26} />
               </Button> : ''}
             {tableType === 'products' ?
               <Button
@@ -471,7 +471,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
                 onClick={exportToExcelProduct}
 
               >
-                <img src='/excel.svg' width={16} height={16} />
+                <img src='/excel.svg' width={26} height={26} />
 
               </Button> : ""}
             {tableType != 'products' ? <Button
@@ -484,7 +484,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
               onClick={exportToExcel}
 
             >
-              <img src='/excel.svg' width={16} height={16} />
+              <img src='/excel.svg' width={26} height={26} />
             </Button> : ""}
           </Flex>
           <Menu
