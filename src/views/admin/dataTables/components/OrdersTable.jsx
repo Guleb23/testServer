@@ -179,19 +179,26 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
             ),
         }
     ];
-
+    const parseDate = (str) => {
+        const [day, month, year] = str.split('.');
+        return new Date(`${year}-${month}-${day}`);
+    };
     const filteredData = React.useMemo(() => {
         return data.filter(row => {
             const sum = parseFloat(row.cost?.toString().replace(/[^\d.-]/g, '')) || 0;
-            const date = new Date(row.date);
+
             const {
                 minSum, maxSum, startDate, endDate, paymentStatus
             } = filterValues;
 
+            const rowDate = typeof row.date === 'string' && row.date.includes('.')
+                ? parseDate(row.date)
+                : new Date(row.date); // Поддержка ISO-формата
+
             if (minSum && sum < parseFloat(minSum)) return false;
             if (maxSum && sum > parseFloat(maxSum)) return false;
-            if (startDate && date < new Date(startDate)) return false;
-            if (endDate && date > new Date(endDate)) return false;
+            if (startDate && rowDate < new Date(startDate)) return false;
+            if (endDate && rowDate > new Date(endDate)) return false;
 
             if (paymentStatus === 'paid' && !row.status) return false;
             if (paymentStatus === 'unpaid' && row.status) return false;
@@ -448,8 +455,8 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                     <Flex align={'center'}>
                         <Button
                             borderRadius="50%"
-                            width="60px"
-                            height="60px"
+                            width="40px"
+                            height="40px"
                             display="flex"
                             justifyContent="center"
                             alignItems="center"
