@@ -26,12 +26,14 @@ import {
     NumberInputField,
     Checkbox,
     TableContainer,
+    FormLabel,
+    FormControl,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { MdPerson, MdPhone, MdCalendarToday, MdLocalShipping, MdCardGiftcard, MdCreditCard, MdEdit, MdPriceCheck, MdAdd, MdCheck, MdCancel } from 'react-icons/md';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { renderTrack, renderThumb, renderView } from "../../../../components/scrollbar/Scrollbar"
-import { FaShoppingCart, FaEdit } from 'react-icons/fa';
+import { FaShoppingCart, FaEdit, FaFilter } from 'react-icons/fa';
 import { MdDeleteForever } from 'react-icons/md';
 import {
     createColumnHelper,
@@ -47,7 +49,9 @@ import { AddIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import CreateOrderModal from '../Modals/CreateOrderModal';
 import { IoMdPricetag } from 'react-icons/io';
 import DeleteOrderDialog from '../Modals/DeleteOrderDialog';
-
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import { RiFileExcel2Line } from 'react-icons/ri';
 const columnHelper = createColumnHelper();
 
 export default function AllOrdersTable({ tableData, onAllUpdate }) {
@@ -83,6 +87,15 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
         setNewProduct({ productId: "", quantity: 1 });
         setIsAddProductOpen(false);
     };
+    const { isOpen: isFilterOpen, onOpen: onOpenFilter, onClose: onCloseFilter } = useDisclosure();
+    const [filterValues, setFilterValues] = React.useState({
+        minSum: '',
+        maxSum: '',
+        startDate: '',
+        endDate: '',
+        paymentStatus: '',
+    });
+
     const columns = [
         {
             header: () => <Text fontSize="sm" color="gray.400">Номер</Text>,
@@ -167,15 +180,44 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
         }
     ];
 
+    const filteredData = React.useMemo(() => {
+        return data.filter(row => {
+            const sum = parseFloat(row.cost?.toString().replace(/[^\d.-]/g, '')) || 0;
+            const date = new Date(row.date);
+            const {
+                minSum, maxSum, startDate, endDate, paymentStatus
+            } = filterValues;
+
+            if (minSum && sum < parseFloat(minSum)) return false;
+            if (maxSum && sum > parseFloat(maxSum)) return false;
+            if (startDate && date < new Date(startDate)) return false;
+            if (endDate && date > new Date(endDate)) return false;
+
+            if (paymentStatus === 'paid' && !row.status) return false;
+            if (paymentStatus === 'unpaid' && row.status) return false;
+
+            return true;
+        });
+    }, [data, filterValues]);
+
+
     const table = useReactTable({
-        data,
+        data: filteredData,
         columns,
         state: { sorting },
         onSortingChange: setSorting,
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
     });
+    const exportToExcelProduct = () => {
+        const worksheet = XLSX.utils.json_to_sheet(filteredData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Заказы');
 
+        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+        const file = new Blob([excelBuffer], { type: 'application/octet-stream' });
+        saveAs(file, 'filtered-orders.xlsx');
+    };
     const updatePaymentStatus = async (orderId, newStatus) => {
         try {
             // Отправляем запрос на сервер для обновления статуса
@@ -389,12 +431,7 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
 
     return (
         <>
-            <DeleteOrderDialog
-                isOpen={isDeleteOrderOpen}
-                onClose={onDeleteOrderClose}
-                onDelete={confirmDeleteOrder}
-                orderId={orderToDelete}
-            />
+
             <Card w="100%" height="calc(100vh - 135px)" px="0px" overflow="hidden" display="flex" flexDirection="column">
                 {/* Заголовок - фиксированная шапка */}
                 <Flex
@@ -408,17 +445,45 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                     zIndex="1"
                 >
                     <Text fontSize="22px" fontWeight="700" color={textColor}>Продажи</Text>
-                    <Button
-                        borderRadius="50%"
-                        width="40px"
-                        height="40px"
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                        onClick={onOpenCreateOrder}
-                    >
-                        <AddIcon boxSize={4} color="purple.500" />
-                    </Button>
+                    <Flex align={'center'}>
+                        <Button
+                            borderRadius="50%"
+                            width="60px"
+                            height="60px"
+                            display="flex"
+                            justifyContent="center"
+                            alignItems="center"
+                            onClick={exportToExcelProduct}
+
+                        >
+                            <RiFileExcel2Line size={20} color="purple.500" />
+                        </Button>
+                        <Button
+                            borderRadius="50%"
+                            width="40px"
+                            height="40px"
+                            display="flex"
+                            justifyContent="center"
+                            alignItems="center"
+                            onClick={onOpenFilter}
+                        >
+                            <FaFilter size={16} color="purple.500" />
+                        </Button>
+                        <Button
+                            borderRadius="50%"
+                            width="40px"
+                            height="40px"
+                            display="flex"
+                            justifyContent="center"
+                            alignItems="center"
+                            onClick={onOpenCreateOrder}
+                        >
+                            <AddIcon boxSize={4} color="purple.500" />
+                        </Button>
+
+                    </Flex>
+
+
                 </Flex>
 
                 {/* Таблица в скролл-контейнере */}
@@ -516,7 +581,12 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                 </Box>
             </Card>
 
-
+            <DeleteOrderDialog
+                isOpen={isDeleteOrderOpen}
+                onClose={onDeleteOrderClose}
+                onDelete={confirmDeleteOrder}
+                orderId={orderToDelete}
+            />
             <CreateOrderModal
                 onAllUpdate={onAllUpdate}
                 isOpen={isOpenCreateOrder}
@@ -885,7 +955,84 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                 </ModalContent>
             </Modal>
 
+            <Modal isOpen={isFilterOpen} onClose={onCloseFilter}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Фильтр продаж</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <FormControl mb={3}>
+                            <FormLabel>Сумма от</FormLabel>
+                            <Input
+                                type="number"
+                                value={filterValues.minSum}
+                                onChange={(e) =>
+                                    setFilterValues({ ...filterValues, minSum: e.target.value })
+                                }
+                            />
+                        </FormControl>
+                        <FormControl mb={3}>
+                            <FormLabel>Сумма до</FormLabel>
+                            <Input
+                                type="number"
+                                value={filterValues.maxSum}
+                                onChange={(e) =>
+                                    setFilterValues({ ...filterValues, maxSum: e.target.value })
+                                }
+                            />
+                        </FormControl>
+                        <FormControl mb={3}>
+                            <FormLabel>Начальная дата</FormLabel>
+                            <Input
+                                type="date"
+                                value={filterValues.startDate}
+                                onChange={(e) =>
+                                    setFilterValues({ ...filterValues, startDate: e.target.value })
+                                }
+                            />
+                        </FormControl>
+                        <FormControl mb={3}>
+                            <FormLabel>Конечная дата</FormLabel>
+                            <Input
+                                type="date"
+                                value={filterValues.endDate}
+                                onChange={(e) =>
+                                    setFilterValues({ ...filterValues, endDate: e.target.value })
+                                }
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel>Статус оплаты</FormLabel>
+                            <Select
+                                placeholder="Все"
+                                value={filterValues.paymentStatus}
+                                onChange={(e) =>
+                                    setFilterValues({ ...filterValues, paymentStatus: e.target.value })
+                                }
+                            >
+                                <option value="paid">Оплачено</option>
+                                <option value="unpaid">Не оплачено</option>
+                            </Select>
+                        </FormControl>
+                    </ModalBody>
 
+                    <ModalFooter>
+                        <Button colorScheme="purple" mr={3} onClick={onCloseFilter}>
+                            Применить
+                        </Button>
+                        <Button variant="ghost" onClick={() => {
+                            setFilterValues({
+                                minSum: '',
+                                maxSum: '',
+                                startDate: '',
+                                endDate: '',
+                                paymentStatus: '',
+                            });
+                            onCloseFilter();
+                        }}>Сбросить</Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
         </>
     );
 }

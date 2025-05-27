@@ -31,11 +31,13 @@ import {
   AlertDialogBody,
   AlertDialogFooter,
   TableContainer,
+  ModalCloseButton,
+  VStack,
 } from '@chakra-ui/react';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { MdDelete } from "react-icons/md";
 import { renderTrack, renderThumb, renderView } from "../../../../components/scrollbar/Scrollbar"
-import { FaEdit, FaSortUp, FaSortDown, FaSort } from "react-icons/fa";
+import { FaEdit, FaSortUp, FaSortDown, FaSort, FaFilter } from "react-icons/fa";
 import {
   createColumnHelper,
   flexRender,
@@ -52,6 +54,9 @@ import CreateClientModal from '../Modals/CreateClientModal';
 import { useAuth } from 'contexts/AuthContext';
 import axios from '../../../../api/axios';
 import CreateCategoryModal from '../Modals/CreateCategoryModal';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import { RiFileExcel2Line } from 'react-icons/ri';
 
 const columnHelper = createColumnHelper();
 
@@ -111,6 +116,15 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
     cashback: '',
   });
 
+
+  const { isOpen: isFilterOpen, onOpen: onOpenFilter, onClose: onCloseFilter } = useDisclosure();
+  const [filterValues, setFilterValues] = React.useState({
+    category: '',
+    minPrice: '',
+    maxPrice: '',
+  });
+
+
   const clientColumns = [
     columnHelper.accessor('id', {
       id: 'id',
@@ -148,6 +162,7 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
           <Button size="md" onClick={() => handleDeleteClient(row.original.id)}>
             <MdDelete color="purple.900" />
           </Button>
+
         </Flex>
       ),
     }),
@@ -205,7 +220,18 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
   });
 
   const columns = tableType === 'products' ? productColumns : clientColumns;
-  const data = tableType === 'products' ? productsData : clientsData;
+  const filteredProducts = React.useMemo(() => {
+    return productsData.filter((product) => {
+      const matchesCategory =
+        !filterValues.category || product.category?.name === filterValues.category || product.category === filterValues.category;
+      const matchesMinPrice =
+        !filterValues.minPrice || Number(product.price) >= Number(filterValues.minPrice);
+      const matchesMaxPrice =
+        !filterValues.maxPrice || Number(product.price) <= Number(filterValues.maxPrice);
+      return matchesCategory && matchesMinPrice && matchesMaxPrice;
+    });
+  }, [productsData, filterValues]);
+  const data = tableType === 'products' ? filteredProducts : clientsData;
 
   const table = useReactTable({
     data,
@@ -221,12 +247,30 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
       ],
     },
   });
+  const exportToExcelProduct = () => {
+    const worksheet = XLSX.utils.json_to_sheet(filteredProducts);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Товары');
 
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const file = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    saveAs(file, 'filtered-products.xlsx');
+  };
+  const exportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(clientsData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Клиенты');
+
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const file = new Blob([excelBuffer], { type: 'application/octet-stream' });
+    saveAs(file, 'clients.xlsx');
+  };
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const currentData = data.slice(page * itemsPerPage, (page + 1) * itemsPerPage);
   const { isOpen: isOpenCreateProduct, onOpen: onOpenCreateProduct, onClose: onCloseCreateProduct } = useDisclosure();
   const { isOpen: isOpenCreateClient, onOpen: onOpenCreateClient, onClose: onCloseCreateClient } = useDisclosure();
   const { isOpen: isOpenCreateCategory, onOpen: onOpenCreateCategory, onClose: onCloseCreateCategory } = useDisclosure();
+
 
   const handleAdd = () => {
     if (tableType === 'products') {
@@ -403,6 +447,35 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
             >
               <AddIcon boxSize={4} color="purple.500" />
             </Button>
+            {tableType === 'products' ?
+              <Button
+                borderRadius="50%"
+                width="40px"
+                height="40px"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                onClick={onOpenFilter}
+
+              >
+                <FaFilter size={16} color="purple.500" />
+              </Button> : ''}
+            {tableType === 'products' ?
+              <Button
+                borderRadius="50%"
+                width="60px"
+                height="60px"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                onClick={exportToExcelProduct}
+
+              >
+                <RiFileExcel2Line size={20} color="purple.500" />
+              </Button> : ""}
+            {tableType != 'products' ? <Button onClick={exportToExcel} colorScheme="green">
+              Выгрузить в Excel
+            </Button> : ""}
           </Flex>
           <Menu
             options={[
@@ -463,6 +536,55 @@ export default function ColumnTable({ onAllUpdate, productsData = [], clientsDat
           </Scrollbars>
         </Box>
       </Card>
+
+      <Modal isOpen={isFilterOpen} onClose={onCloseFilter}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Фильтр по товарам</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <VStack spacing={4}>
+              <Select
+                placeholder="Категория"
+                value={filterValues.category}
+                onChange={(e) => setFilterValues({ ...filterValues, category: e.target.value })}
+              >
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.name}>
+                    {cat.name}
+                  </option>
+                ))}
+              </Select>
+
+              <Input
+                placeholder="Цена от"
+                type="number"
+                value={filterValues.minPrice}
+                onChange={(e) => setFilterValues({ ...filterValues, minPrice: e.target.value })}
+              />
+              <Input
+                placeholder="до"
+                type="number"
+                value={filterValues.maxPrice}
+                onChange={(e) => setFilterValues({ ...filterValues, maxPrice: e.target.value })}
+              />
+            </VStack>
+          </ModalBody>
+          <ModalFooter>
+            <Button mr={3} onClick={onCloseFilter}>
+              Применить
+            </Button>
+            <Button variant="ghost" onClick={() => {
+              setFilterValues({ category: '', minPrice: '', maxPrice: '' });
+              onCloseFilter();
+            }}>
+              Сбросить
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+
 
       {/* Модальное окно для редактирования продукта */}
       <Modal isOpen={isModalOpen} onClose={handleCancel}>
