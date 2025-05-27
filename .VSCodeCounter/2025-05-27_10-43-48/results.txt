@@ -1,0 +1,170 @@
+Date : 2025-05-27 10:43:48
+Directory : c:\Users\юзер\Desktop\testServer
+Total : 88 files,  8221 codes, 307 comments, 638 blanks, all 9166 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JavaScript         |         57 |      4,923 |        154 |        368 |      5,445 |
+| JavaScript JSX     |         15 |      2,818 |        150 |        252 |      3,220 |
+| JSON               |         10 |        293 |          0 |          9 |        302 |
+| PostCSS            |          3 |        162 |          2 |          7 |        171 |
+| HTML               |          1 |         16 |          1 |          1 |         18 |
+| JSON with Comments |          1 |          8 |          0 |          1 |          9 |
+| Properties         |          1 |          1 |          0 |          0 |          1 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                       | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                          |         88 |      8,221 |        307 |        638 |      9,166 |
+| . (Files)                                                                                  |          4 |         89 |          0 |          3 |         92 |
+| public                                                                                     |         10 |        233 |          1 |          9 |        243 |
+| public (Files)                                                                             |          2 |         31 |          1 |          2 |         34 |
+| public\data                                                                                |          8 |        202 |          0 |          7 |        209 |
+| src                                                                                        |         74 |      7,899 |        306 |        626 |      8,831 |
+| src (Files)                                                                                |          3 |        103 |          6 |         15 |        124 |
+| src\api                                                                                    |          3 |         20 |          0 |          5 |         25 |
+| src\assets                                                                                 |          3 |        162 |          2 |          7 |        171 |
+| src\assets\css                                                                             |          3 |        162 |          2 |          7 |        171 |
+| src\components                                                                             |         28 |      2,071 |         90 |        152 |      2,313 |
+| src\components\calendar                                                                    |          1 |         31 |          2 |          2 |         35 |
+| src\components\card                                                                        |          4 |        168 |         11 |         16 |        195 |
+| src\components\charts                                                                      |          2 |         58 |          0 |         11 |         69 |
+| src\components\dataDispaly                                                                 |          1 |          2 |         32 |          3 |         37 |
+| src\components\fields                                                                      |          2 |        143 |          5 |          5 |        153 |
+| src\components\fixedPlugin                                                                 |          1 |         36 |          2 |          3 |         41 |
+| src\components\footer                                                                      |          2 |        136 |          2 |          5 |        143 |
+| src\components\icons                                                                       |          2 |        619 |          2 |         36 |        657 |
+| src\components\menu                                                                        |          3 |        252 |          5 |         11 |        268 |
+| src\components\navbar                                                                      |          2 |        302 |          6 |         13 |        321 |
+| src\components\route                                                                       |          1 |          7 |          0 |          4 |         11 |
+| src\components\scrollbar                                                                   |          1 |         36 |          0 |          2 |         38 |
+| src\components\separator                                                                   |          1 |         11 |          0 |          4 |         15 |
+| src\components\sidebar                                                                     |          5 |        270 |         23 |         37 |        330 |
+| src\components\sidebar (Files)                                                             |          1 |        106 |          8 |         11 |        125 |
+| src\components\sidebar\components                                                          |          4 |        164 |         15 |         26 |        205 |
+| src\contexts                                                                               |          2 |         27 |          0 |          9 |         36 |
+| src\layouts                                                                                |          3 |        299 |         16 |         15 |        330 |
+| src\layouts\admin                                                                          |          1 |        166 |          5 |          3 |        174 |
+| src\layouts\auth                                                                           |          2 |        133 |         11 |         12 |        156 |
+| src\theme                                                                                  |         12 |        660 |         22 |         28 |        710 |
+| src\theme (Files)                                                                          |          2 |        122 |          0 |          2 |        124 |
+| src\theme\additions                                                                        |          1 |         24 |          0 |          2 |         26 |
+| src\theme\additions\card                                                                   |          1 |         24 |          0 |          2 |         26 |
+| src\theme\components                                                                       |          8 |        504 |         22 |         22 |        548 |
+| src\theme\foundations                                                                      |          1 |         10 |          0 |          2 |         12 |
+| src\views                                                                                  |         20 |      4,557 |        170 |        395 |      5,122 |
+| src\views\admin                                                                            |         18 |      3,992 |        161 |        337 |      4,490 |
+| src\views\admin\dataTables                                                                 |         12 |      3,278 |         55 |        241 |      3,574 |
+| src\views\admin\dataTables (Files)                                                         |          1 |        133 |          6 |         21 |        160 |
+| src\views\admin\dataTables\Modals                                                          |          8 |      1,017 |         14 |         73 |      1,104 |
+| src\views\admin\dataTables\components                                                      |          3 |      2,128 |         35 |        147 |      2,310 |
+| src\views\admin\default                                                                    |          4 |        506 |          9 |         59 |        574 |
+| src\views\admin\default (Files)                                                            |          1 |        123 |          1 |         18 |        142 |
+| src\views\admin\default\components                                                         |          3 |        383 |          8 |         41 |        432 |
+| src\views\admin\profile                                                                    |          2 |        208 |         97 |         37 |        342 |
+| src\views\admin\profile (Files)                                                            |          1 |         14 |         96 |         10 |        120 |
+| src\views\admin\profile\components                                                         |          1 |        194 |          1 |         27 |        222 |
+| src\views\auth                                                                             |          2 |        565 |          9 |         58 |        632 |
+| src\views\auth\signIn                                                                      |          2 |        565 |          9 |         58 |        632 |
+| src\views\auth\signIn (Files)                                                              |          1 |        207 |          6 |         21 |        234 |
+| src\views\auth\signIn\signup                                                               |          1 |        358 |          3 |         37 |        398 |
++--------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                   | language           | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\юзер\Desktop\testServer\.env                                                      | Properties         |          1 |          0 |          0 |          1 |
+| c:\Users\юзер\Desktop\testServer\jsconfig.json                                             | JSON with Comments |          8 |          0 |          1 |          9 |
+| c:\Users\юзер\Desktop\testServer\package.json                                              | JSON               |         76 |          0 |          1 |         77 |
+| c:\Users\юзер\Desktop\testServer\prettier.config.js                                        | JavaScript         |          4 |          0 |          1 |          5 |
+| c:\Users\юзер\Desktop\testServer\public\data\statistics.json                               | JSON               |          6 |          0 |          1 |          7 |
+| c:\Users\юзер\Desktop\testServer\public\data\tableDataCheckClients.json                    | JSON               |         52 |          0 |          0 |         52 |
+| c:\Users\юзер\Desktop\testServer\public\data\tableDataCheckProducts.json                   | JSON               |         52 |          0 |          0 |         52 |
+| c:\Users\юзер\Desktop\testServer\public\data\tableDataClients.json                         | JSON               |          7 |          0 |          1 |          8 |
+| c:\Users\юзер\Desktop\testServer\public\data\tableDataComplex.json                         | JSON               |         26 |          0 |          2 |         28 |
+| c:\Users\юзер\Desktop\testServer\public\data\tableDataPie.json                             | JSON               |         22 |          0 |          1 |         23 |
+| c:\Users\юзер\Desktop\testServer\public\data\tableDataProducts.json                        | JSON               |          7 |          0 |          1 |          8 |
+| c:\Users\юзер\Desktop\testServer\public\data\tableDataTotalSpent.json                      | JSON               |         30 |          0 |          1 |         31 |
+| c:\Users\юзер\Desktop\testServer\public\index.html                                         | HTML               |         16 |          1 |          1 |         18 |
+| c:\Users\юзер\Desktop\testServer\public\manifest.json                                      | JSON               |         15 |          0 |          1 |         16 |
+| c:\Users\юзер\Desktop\testServer\src\App.js                                                | JavaScript         |         39 |          3 |          5 |         47 |
+| c:\Users\юзер\Desktop\testServer\src\api\axios.js                                          | JavaScript         |          8 |          0 |          2 |         10 |
+| c:\Users\юзер\Desktop\testServer\src\api\registerUser.js                                   | JavaScript         |          4 |          0 |          1 |          5 |
+| c:\Users\юзер\Desktop\testServer\src\api\user.js                                           | JavaScript         |          8 |          0 |          2 |         10 |
+| c:\Users\юзер\Desktop\testServer\src\assets\css\App.css                                    | PostCSS            |          7 |          0 |          3 |         10 |
+| c:\Users\юзер\Desktop\testServer\src\assets\css\Contact.css                                | PostCSS            |          3 |          0 |          0 |          3 |
+| c:\Users\юзер\Desktop\testServer\src\assets\css\MiniCalendar.css                           | PostCSS            |        152 |          2 |          4 |        158 |
+| c:\Users\юзер\Desktop\testServer\src\components\calendar\MiniCalendar.js                   | JavaScript         |         31 |          2 |          2 |         35 |
+| c:\Users\юзер\Desktop\testServer\src\components\card\Card.js                               | JavaScript         |         11 |          0 |          3 |         14 |
+| c:\Users\юзер\Desktop\testServer\src\components\card\Mastercard.js                         | JavaScript         |         51 |          4 |          5 |         60 |
+| c:\Users\юзер\Desktop\testServer\src\components\card\Member.js                             | JavaScript         |         50 |          3 |          4 |         57 |
+| c:\Users\юзер\Desktop\testServer\src\components\card\MiniStatistics.js                     | JavaScript         |         56 |          4 |          4 |         64 |
+| c:\Users\юзер\Desktop\testServer\src\components\charts\BarChart.js                         | JavaScript         |         29 |          0 |          5 |         34 |
+| c:\Users\юзер\Desktop\testServer\src\components\charts\LineAreaChart.js                    | JavaScript         |         29 |          0 |          6 |         35 |
+| c:\Users\юзер\Desktop\testServer\src\components\dataDispaly\TimelineRow.js                 | JavaScript         |          2 |         32 |          3 |         37 |
+| c:\Users\юзер\Desktop\testServer\src\components\fields\InputField.js                       | JavaScript         |         40 |          3 |          3 |         46 |
+| c:\Users\юзер\Desktop\testServer\src\components\fields\SwitchField.js                      | JavaScript         |        103 |          2 |          2 |        107 |
+| c:\Users\юзер\Desktop\testServer\src\components\fixedPlugin\FixedPlugin.js                 | JavaScript         |         36 |          2 |          3 |         41 |
+| c:\Users\юзер\Desktop\testServer\src\components\footer\FooterAdmin.js                      | JavaScript         |         69 |          1 |          2 |         72 |
+| c:\Users\юзер\Desktop\testServer\src\components\footer\FooterAuth.js                       | JavaScript         |         67 |          1 |          3 |         71 |
+| c:\Users\юзер\Desktop\testServer\src\components\icons\IconBox.js                           | JavaScript         |         14 |          0 |          3 |         17 |
+| c:\Users\юзер\Desktop\testServer\src\components\icons\Icons.js                             | JavaScript         |        605 |          2 |         33 |        640 |
+| c:\Users\юзер\Desktop\testServer\src\components\menu\ItemContent.js                        | JavaScript         |         39 |          1 |          2 |         42 |
+| c:\Users\юзер\Desktop\testServer\src\components\menu\MainMenu.js                           | JavaScript         |         80 |          0 |          3 |         83 |
+| c:\Users\юзер\Desktop\testServer\src\components\menu\TransparentMenu.js                    | JavaScript         |        133 |          4 |          6 |        143 |
+| c:\Users\юзер\Desktop\testServer\src\components\navbar\NavbarAdmin.js                      | JavaScript         |         72 |          1 |          9 |         82 |
+| c:\Users\юзер\Desktop\testServer\src\components\navbar\NavbarLinksAdmin.js                 | JavaScript         |        230 |          5 |          4 |        239 |
+| c:\Users\юзер\Desktop\testServer\src\components\route\PrivateRoute.js                      | JavaScript         |          7 |          0 |          4 |         11 |
+| c:\Users\юзер\Desktop\testServer\src\components\scrollbar\Scrollbar.js                     | JavaScript         |         36 |          0 |          2 |         38 |
+| c:\Users\юзер\Desktop\testServer\src\components\separator\Separator.jsx                    | JavaScript JSX     |         11 |          0 |          4 |         15 |
+| c:\Users\юзер\Desktop\testServer\src\components\sidebar\Sidebar.js                         | JavaScript         |        106 |          8 |         11 |        125 |
+| c:\Users\юзер\Desktop\testServer\src\components\sidebar\components\Brand.js                | JavaScript         |         14 |          3 |          6 |         23 |
+| c:\Users\юзер\Desktop\testServer\src\components\sidebar\components\Content.js              | JavaScript         |         25 |          4 |          5 |         34 |
+| c:\Users\юзер\Desktop\testServer\src\components\sidebar\components\Links.js                | JavaScript         |         83 |          5 |          7 |         95 |
+| c:\Users\юзер\Desktop\testServer\src\components\sidebar\components\SidebarCard.js          | JavaScript         |         42 |          3 |          8 |         53 |
+| c:\Users\юзер\Desktop\testServer\src\contexts\AuthContext.js                               | JavaScript         |         25 |          0 |          7 |         32 |
+| c:\Users\юзер\Desktop\testServer\src\contexts\SidebarContext.js                            | JavaScript         |          2 |          0 |          2 |          4 |
+| c:\Users\юзер\Desktop\testServer\src\index.js                                              | JavaScript         |         11 |          0 |          4 |         15 |
+| c:\Users\юзер\Desktop\testServer\src\layouts\admin\index.js                                | JavaScript         |        166 |          5 |          3 |        174 |
+| c:\Users\юзер\Desktop\testServer\src\layouts\auth\Default.js                               | JavaScript         |         69 |          5 |          5 |         79 |
+| c:\Users\юзер\Desktop\testServer\src\layouts\auth\index.js                                 | JavaScript         |         64 |          6 |          7 |         77 |
+| c:\Users\юзер\Desktop\testServer\src\routes.js                                             | JavaScript         |         53 |          3 |          6 |         62 |
+| c:\Users\юзер\Desktop\testServer\src\theme\additions\card\card.js                          | JavaScript         |         24 |          0 |          2 |         26 |
+| c:\Users\юзер\Desktop\testServer\src\theme\components\badge.js                             | JavaScript         |         32 |          0 |          1 |         33 |
+| c:\Users\юзер\Desktop\testServer\src\theme\components\button.js                            | JavaScript         |        104 |          0 |          1 |        105 |
+| c:\Users\юзер\Desktop\testServer\src\theme\components\input.js                             | JavaScript         |        200 |         14 |          9 |        223 |
+| c:\Users\юзер\Desktop\testServer\src\theme\components\link.js                              | JavaScript         |         24 |          0 |          2 |         26 |
+| c:\Users\юзер\Desktop\testServer\src\theme\components\progress.js                          | JavaScript         |         42 |          0 |          2 |         44 |
+| c:\Users\юзер\Desktop\testServer\src\theme\components\slider.js                            | JavaScript         |         14 |          8 |          2 |         24 |
+| c:\Users\юзер\Desktop\testServer\src\theme\components\switch.js                            | JavaScript         |         35 |          0 |          2 |         37 |
+| c:\Users\юзер\Desktop\testServer\src\theme\components\textarea.js                          | JavaScript         |         53 |          0 |          3 |         56 |
+| c:\Users\юзер\Desktop\testServer\src\theme\foundations\breakpoints.js                      | JavaScript         |         10 |          0 |          2 |         12 |
+| c:\Users\юзер\Desktop\testServer\src\theme\styles.js                                       | JavaScript         |         97 |          0 |          1 |         98 |
+| c:\Users\юзер\Desktop\testServer\src\theme\theme.js                                        | JavaScript         |         25 |          0 |          1 |         26 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\ClientModal.jsx         | JavaScript JSX     |         42 |          0 |          3 |         45 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\CreateCategoryModal.jsx | JavaScript JSX     |         69 |          0 |          5 |         74 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\CreateClientModal.jsx   | JavaScript JSX     |        108 |          0 |          5 |        113 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\CreateOrderModal.jsx    | JavaScript JSX     |        290 |          4 |         20 |        314 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\CreateProductModal.jsx  | JavaScript JSX     |        190 |          5 |         16 |        211 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\DeleteOrderDialog.jsx   | JavaScript JSX     |         73 |          0 |          6 |         79 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\EditProductModal.jsx    | JavaScript JSX     |        217 |          4 |         14 |        235 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\OrderModal.jsx          | JavaScript JSX     |         28 |          1 |          4 |         33 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\components\ColumnsTable.js     | JavaScript         |        726 |          2 |         46 |        774 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\components\ComplexTable.js     | JavaScript         |        447 |          9 |         33 |        489 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\components\OrdersTable.jsx     | JavaScript JSX     |        955 |         24 |         68 |      1,047 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\index.jsx                      | JavaScript JSX     |        133 |          6 |         21 |        160 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\default\components\CheckTable.js          | JavaScript         |        137 |          2 |         11 |        150 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\default\components\PieCard.js             | JavaScript         |         77 |          4 |         14 |         95 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\default\components\TotalSpent.js          | JavaScript         |        169 |          2 |         16 |        187 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\default\index.jsx                         | JavaScript JSX     |        123 |          1 |         18 |        142 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\profile\components\ProfileSettings.js     | JavaScript         |        194 |          1 |         27 |        222 |
+| c:\Users\юзер\Desktop\testServer\src\views\admin\profile\index.jsx                         | JavaScript JSX     |         14 |         96 |         10 |        120 |
+| c:\Users\юзер\Desktop\testServer\src\views\auth\signIn\index.jsx                           | JavaScript JSX     |        207 |          6 |         21 |        234 |
+| c:\Users\юзер\Desktop\testServer\src\views\auth\signIn\signup\SignUp.jsx                   | JavaScript JSX     |        358 |          3 |         37 |        398 |
+| Total                                                                                      |                    |      8,221 |        307 |        638 |      9,166 |
++--------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

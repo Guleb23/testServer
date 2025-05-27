@@ -463,7 +463,7 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                             onClick={exportToExcelProduct}
 
                         >
-                            <RiFileExcel2Line size={20} color="purple.500" />
+                            <RiFileExcel2Line scale={20} color="purple.500" />
                         </Button>
                         <Button
                             borderRadius="50%"
@@ -474,7 +474,7 @@ export default function AllOrdersTable({ tableData, onAllUpdate }) {
                             alignItems="center"
                             onClick={onOpenFilter}
                         >
-                            <FaFilter size={16} color="purple.500" />
+                            <FaFilter scale={20} color="purple.500" />
                         </Button>
                         <Button
                             borderRadius="50%"

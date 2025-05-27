@@ -1,0 +1,90 @@
+"filename", "language", "JSON with Comments", "JavaScript", "JSON", "Properties", "JavaScript JSX", "PostCSS", "HTML", "comment", "blank", "total"
+"c:\Users\юзер\Desktop\testServer\.env", "Properties", 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"c:\Users\юзер\Desktop\testServer\jsconfig.json", "JSON with Comments", 8, 0, 0, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\юзер\Desktop\testServer\package.json", "JSON", 0, 0, 76, 0, 0, 0, 0, 0, 1, 77
+"c:\Users\юзер\Desktop\testServer\prettier.config.js", "JavaScript", 0, 4, 0, 0, 0, 0, 0, 0, 1, 5
+"c:\Users\юзер\Desktop\testServer\public\data\statistics.json", "JSON", 0, 0, 6, 0, 0, 0, 0, 0, 1, 7
+"c:\Users\юзер\Desktop\testServer\public\data\tableDataCheckClients.json", "JSON", 0, 0, 52, 0, 0, 0, 0, 0, 0, 52
+"c:\Users\юзер\Desktop\testServer\public\data\tableDataCheckProducts.json", "JSON", 0, 0, 52, 0, 0, 0, 0, 0, 0, 52
+"c:\Users\юзер\Desktop\testServer\public\data\tableDataClients.json", "JSON", 0, 0, 7, 0, 0, 0, 0, 0, 1, 8
+"c:\Users\юзер\Desktop\testServer\public\data\tableDataComplex.json", "JSON", 0, 0, 26, 0, 0, 0, 0, 0, 2, 28
+"c:\Users\юзер\Desktop\testServer\public\data\tableDataPie.json", "JSON", 0, 0, 22, 0, 0, 0, 0, 0, 1, 23
+"c:\Users\юзер\Desktop\testServer\public\data\tableDataProducts.json", "JSON", 0, 0, 7, 0, 0, 0, 0, 0, 1, 8
+"c:\Users\юзер\Desktop\testServer\public\data\tableDataTotalSpent.json", "JSON", 0, 0, 30, 0, 0, 0, 0, 0, 1, 31
+"c:\Users\юзер\Desktop\testServer\public\index.html", "HTML", 0, 0, 0, 0, 0, 0, 16, 1, 1, 18
+"c:\Users\юзер\Desktop\testServer\public\manifest.json", "JSON", 0, 0, 15, 0, 0, 0, 0, 0, 1, 16
+"c:\Users\юзер\Desktop\testServer\src\App.js", "JavaScript", 0, 39, 0, 0, 0, 0, 0, 3, 5, 47
+"c:\Users\юзер\Desktop\testServer\src\api\axios.js", "JavaScript", 0, 8, 0, 0, 0, 0, 0, 0, 2, 10
+"c:\Users\юзер\Desktop\testServer\src\api\registerUser.js", "JavaScript", 0, 4, 0, 0, 0, 0, 0, 0, 1, 5
+"c:\Users\юзер\Desktop\testServer\src\api\user.js", "JavaScript", 0, 8, 0, 0, 0, 0, 0, 0, 2, 10
+"c:\Users\юзер\Desktop\testServer\src\assets\css\App.css", "PostCSS", 0, 0, 0, 0, 0, 7, 0, 0, 3, 10
+"c:\Users\юзер\Desktop\testServer\src\assets\css\Contact.css", "PostCSS", 0, 0, 0, 0, 0, 3, 0, 0, 0, 3
+"c:\Users\юзер\Desktop\testServer\src\assets\css\MiniCalendar.css", "PostCSS", 0, 0, 0, 0, 0, 152, 0, 2, 4, 158
+"c:\Users\юзер\Desktop\testServer\src\components\calendar\MiniCalendar.js", "JavaScript", 0, 31, 0, 0, 0, 0, 0, 2, 2, 35
+"c:\Users\юзер\Desktop\testServer\src\components\card\Card.js", "JavaScript", 0, 11, 0, 0, 0, 0, 0, 0, 3, 14
+"c:\Users\юзер\Desktop\testServer\src\components\card\Mastercard.js", "JavaScript", 0, 51, 0, 0, 0, 0, 0, 4, 5, 60
+"c:\Users\юзер\Desktop\testServer\src\components\card\Member.js", "JavaScript", 0, 50, 0, 0, 0, 0, 0, 3, 4, 57
+"c:\Users\юзер\Desktop\testServer\src\components\card\MiniStatistics.js", "JavaScript", 0, 56, 0, 0, 0, 0, 0, 4, 4, 64
+"c:\Users\юзер\Desktop\testServer\src\components\charts\BarChart.js", "JavaScript", 0, 29, 0, 0, 0, 0, 0, 0, 5, 34
+"c:\Users\юзер\Desktop\testServer\src\components\charts\LineAreaChart.js", "JavaScript", 0, 29, 0, 0, 0, 0, 0, 0, 6, 35
+"c:\Users\юзер\Desktop\testServer\src\components\dataDispaly\TimelineRow.js", "JavaScript", 0, 2, 0, 0, 0, 0, 0, 32, 3, 37
+"c:\Users\юзер\Desktop\testServer\src\components\fields\InputField.js", "JavaScript", 0, 40, 0, 0, 0, 0, 0, 3, 3, 46
+"c:\Users\юзер\Desktop\testServer\src\components\fields\SwitchField.js", "JavaScript", 0, 103, 0, 0, 0, 0, 0, 2, 2, 107
+"c:\Users\юзер\Desktop\testServer\src\components\fixedPlugin\FixedPlugin.js", "JavaScript", 0, 36, 0, 0, 0, 0, 0, 2, 3, 41
+"c:\Users\юзер\Desktop\testServer\src\components\footer\FooterAdmin.js", "JavaScript", 0, 69, 0, 0, 0, 0, 0, 1, 2, 72
+"c:\Users\юзер\Desktop\testServer\src\components\footer\FooterAuth.js", "JavaScript", 0, 67, 0, 0, 0, 0, 0, 1, 3, 71
+"c:\Users\юзер\Desktop\testServer\src\components\icons\IconBox.js", "JavaScript", 0, 14, 0, 0, 0, 0, 0, 0, 3, 17
+"c:\Users\юзер\Desktop\testServer\src\components\icons\Icons.js", "JavaScript", 0, 605, 0, 0, 0, 0, 0, 2, 33, 640
+"c:\Users\юзер\Desktop\testServer\src\components\menu\ItemContent.js", "JavaScript", 0, 39, 0, 0, 0, 0, 0, 1, 2, 42
+"c:\Users\юзер\Desktop\testServer\src\components\menu\MainMenu.js", "JavaScript", 0, 80, 0, 0, 0, 0, 0, 0, 3, 83
+"c:\Users\юзер\Desktop\testServer\src\components\menu\TransparentMenu.js", "JavaScript", 0, 133, 0, 0, 0, 0, 0, 4, 6, 143
+"c:\Users\юзер\Desktop\testServer\src\components\navbar\NavbarAdmin.js", "JavaScript", 0, 72, 0, 0, 0, 0, 0, 1, 9, 82
+"c:\Users\юзер\Desktop\testServer\src\components\navbar\NavbarLinksAdmin.js", "JavaScript", 0, 230, 0, 0, 0, 0, 0, 5, 4, 239
+"c:\Users\юзер\Desktop\testServer\src\components\route\PrivateRoute.js", "JavaScript", 0, 7, 0, 0, 0, 0, 0, 0, 4, 11
+"c:\Users\юзер\Desktop\testServer\src\components\scrollbar\Scrollbar.js", "JavaScript", 0, 36, 0, 0, 0, 0, 0, 0, 2, 38
+"c:\Users\юзер\Desktop\testServer\src\components\separator\Separator.jsx", "JavaScript JSX", 0, 0, 0, 0, 11, 0, 0, 0, 4, 15
+"c:\Users\юзер\Desktop\testServer\src\components\sidebar\Sidebar.js", "JavaScript", 0, 106, 0, 0, 0, 0, 0, 8, 11, 125
+"c:\Users\юзер\Desktop\testServer\src\components\sidebar\components\Brand.js", "JavaScript", 0, 14, 0, 0, 0, 0, 0, 3, 6, 23
+"c:\Users\юзер\Desktop\testServer\src\components\sidebar\components\Content.js", "JavaScript", 0, 25, 0, 0, 0, 0, 0, 4, 5, 34
+"c:\Users\юзер\Desktop\testServer\src\components\sidebar\components\Links.js", "JavaScript", 0, 83, 0, 0, 0, 0, 0, 5, 7, 95
+"c:\Users\юзер\Desktop\testServer\src\components\sidebar\components\SidebarCard.js", "JavaScript", 0, 42, 0, 0, 0, 0, 0, 3, 8, 53
+"c:\Users\юзер\Desktop\testServer\src\contexts\AuthContext.js", "JavaScript", 0, 25, 0, 0, 0, 0, 0, 0, 7, 32
+"c:\Users\юзер\Desktop\testServer\src\contexts\SidebarContext.js", "JavaScript", 0, 2, 0, 0, 0, 0, 0, 0, 2, 4
+"c:\Users\юзер\Desktop\testServer\src\index.js", "JavaScript", 0, 11, 0, 0, 0, 0, 0, 0, 4, 15
+"c:\Users\юзер\Desktop\testServer\src\layouts\admin\index.js", "JavaScript", 0, 166, 0, 0, 0, 0, 0, 5, 3, 174
+"c:\Users\юзер\Desktop\testServer\src\layouts\auth\Default.js", "JavaScript", 0, 69, 0, 0, 0, 0, 0, 5, 5, 79
+"c:\Users\юзер\Desktop\testServer\src\layouts\auth\index.js", "JavaScript", 0, 64, 0, 0, 0, 0, 0, 6, 7, 77
+"c:\Users\юзер\Desktop\testServer\src\routes.js", "JavaScript", 0, 53, 0, 0, 0, 0, 0, 3, 6, 62
+"c:\Users\юзер\Desktop\testServer\src\theme\additions\card\card.js", "JavaScript", 0, 24, 0, 0, 0, 0, 0, 0, 2, 26
+"c:\Users\юзер\Desktop\testServer\src\theme\components\badge.js", "JavaScript", 0, 32, 0, 0, 0, 0, 0, 0, 1, 33
+"c:\Users\юзер\Desktop\testServer\src\theme\components\button.js", "JavaScript", 0, 104, 0, 0, 0, 0, 0, 0, 1, 105
+"c:\Users\юзер\Desktop\testServer\src\theme\components\input.js", "JavaScript", 0, 200, 0, 0, 0, 0, 0, 14, 9, 223
+"c:\Users\юзер\Desktop\testServer\src\theme\components\link.js", "JavaScript", 0, 24, 0, 0, 0, 0, 0, 0, 2, 26
+"c:\Users\юзер\Desktop\testServer\src\theme\components\progress.js", "JavaScript", 0, 42, 0, 0, 0, 0, 0, 0, 2, 44
+"c:\Users\юзер\Desktop\testServer\src\theme\components\slider.js", "JavaScript", 0, 14, 0, 0, 0, 0, 0, 8, 2, 24
+"c:\Users\юзер\Desktop\testServer\src\theme\components\switch.js", "JavaScript", 0, 35, 0, 0, 0, 0, 0, 0, 2, 37
+"c:\Users\юзер\Desktop\testServer\src\theme\components\textarea.js", "JavaScript", 0, 53, 0, 0, 0, 0, 0, 0, 3, 56
+"c:\Users\юзер\Desktop\testServer\src\theme\foundations\breakpoints.js", "JavaScript", 0, 10, 0, 0, 0, 0, 0, 0, 2, 12
+"c:\Users\юзер\Desktop\testServer\src\theme\styles.js", "JavaScript", 0, 97, 0, 0, 0, 0, 0, 0, 1, 98
+"c:\Users\юзер\Desktop\testServer\src\theme\theme.js", "JavaScript", 0, 25, 0, 0, 0, 0, 0, 0, 1, 26
+"c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\ClientModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 42, 0, 0, 0, 3, 45
+"c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\CreateCategoryModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 69, 0, 0, 0, 5, 74
+"c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\CreateClientModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 108, 0, 0, 0, 5, 113
+"c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\CreateOrderModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 290, 0, 0, 4, 20, 314
+"c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\CreateProductModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 190, 0, 0, 5, 16, 211
+"c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\DeleteOrderDialog.jsx", "JavaScript JSX", 0, 0, 0, 0, 73, 0, 0, 0, 6, 79
+"c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\EditProductModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 217, 0, 0, 4, 14, 235
+"c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\Modals\OrderModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 28, 0, 0, 1, 4, 33
+"c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\components\ColumnsTable.js", "JavaScript", 0, 726, 0, 0, 0, 0, 0, 2, 46, 774
+"c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\components\ComplexTable.js", "JavaScript", 0, 447, 0, 0, 0, 0, 0, 9, 33, 489
+"c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\components\OrdersTable.jsx", "JavaScript JSX", 0, 0, 0, 0, 955, 0, 0, 24, 68, 1047
+"c:\Users\юзер\Desktop\testServer\src\views\admin\dataTables\index.jsx", "JavaScript JSX", 0, 0, 0, 0, 133, 0, 0, 6, 21, 160
+"c:\Users\юзер\Desktop\testServer\src\views\admin\default\components\CheckTable.js", "JavaScript", 0, 137, 0, 0, 0, 0, 0, 2, 11, 150
+"c:\Users\юзер\Desktop\testServer\src\views\admin\default\components\PieCard.js", "JavaScript", 0, 77, 0, 0, 0, 0, 0, 4, 14, 95
+"c:\Users\юзер\Desktop\testServer\src\views\admin\default\components\TotalSpent.js", "JavaScript", 0, 169, 0, 0, 0, 0, 0, 2, 16, 187
+"c:\Users\юзер\Desktop\testServer\src\views\admin\default\index.jsx", "JavaScript JSX", 0, 0, 0, 0, 123, 0, 0, 1, 18, 142
+"c:\Users\юзер\Desktop\testServer\src\views\admin\profile\components\ProfileSettings.js", "JavaScript", 0, 194, 0, 0, 0, 0, 0, 1, 27, 222
+"c:\Users\юзер\Desktop\testServer\src\views\admin\profile\index.jsx", "JavaScript JSX", 0, 0, 0, 0, 14, 0, 0, 96, 10, 120
+"c:\Users\юзер\Desktop\testServer\src\views\auth\signIn\index.jsx", "JavaScript JSX", 0, 0, 0, 0, 207, 0, 0, 6, 21, 234
+"c:\Users\юзер\Desktop\testServer\src\views\auth\signIn\signup\SignUp.jsx", "JavaScript JSX", 0, 0, 0, 0, 358, 0, 0, 3, 37, 398
+"Total", "-", 8, 4923, 293, 1, 2818, 162, 16, 307, 638, 9166
